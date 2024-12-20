@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'tplab2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'django_db',
         'USER' : 'postgres',
-        'PASSWORD' : os.environ['DATABASE_PASSWORD'] if 'DATABASE_PASSWORD' in os.environ else '',
+        'PASSWORD' : 'aazzaa0099',
         'HOST' : 'localhost',
         'PORT' : '5432',
     }
