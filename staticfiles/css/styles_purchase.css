@@ -10,7 +10,10 @@ body {
 }
 
 h3 {
-    color: black;
+    color: black; /* Цвет текста */
+    text-align: center; /* Выравнивание по центру */
+    font-size: 24px; /* Увеличиваем размер шрифта */
+    margin-top: 20px; /* Добавляем отступ сверху, если нужно */
 }
 
 /* Стили для хедера с логотипом */
@@ -68,26 +71,39 @@ table tr:hover {
     background-color: #dcdcdc;  /* цвет при наведении на строку */
 }
 
-/* Стили для кнопки "Купить" */
-.buy-button {
+/* Стили для кнопки "Отправить" */
+.submit-button-container {
+    margin-top: 20px; /* Отступ сверху для кнопки */
+    text-align: center;  /* Центрируем кнопку */
+}
+
+.submit-button-container input[type="submit"] {
     background-color: #4CAF50;  /* зеленый фон кнопки */
     color: white;  /* белый текст */
-    padding: 10px 15px;
+    padding: 15px 30px;  /* делаем кнопку шире */
     border-radius: 30px;  /* круглые края */
     text-decoration: none;  /* убираем подчеркивание */
     font-weight: bold;
-    display: inline-block;
     text-align: center;
     transition: background-color 0.3s ease;
-}
-
-.buy-button i {
-    margin-right: 8px;  /* отступ для иконки */
+    width: 18%;  /* растягиваем кнопку на всю ширину контейнера */
+    border: none;  /* убираем черную окантовку */
 }
 
 /* Эффект при наведении на кнопку */
-.buy-button:hover {
+.submit-button-container input[type="submit"]:hover {
     background-color: #45a049;  /* более темный зеленый при наведении */
+}
+
+/* Стили для полей ввода */
+input[type="text"] {
+    width: 100%;  /* Заполняем всю доступную ширину ячейки */
+    padding: 10px;  /* Увеличиваем внутренние отступы */
+    border-radius: 5px;  /* Скругляем углы */
+    border: none;  /* Убираем черную окантовку */
+    background-color: #f0f0f0;  /* светлый фон */
+    font-size: 16px;  /* Увеличиваем шрифт */
+    box-sizing: border-box;  /* Учитываем отступы внутри элемента */
 }
 
 /* Стили для футера */

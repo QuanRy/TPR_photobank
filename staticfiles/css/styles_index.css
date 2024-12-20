@@ -37,6 +37,8 @@ table {
     margin: 20px auto;  /* Центрируем таблицу по горизонтали с отступом сверху и снизу */
     border-collapse: collapse;
     background-color: #f9f9f9;  /* светлый фон таблицы */
+    border-radius: 15px; /* Округляем края */
+    overflow: hidden; /* Убираем выступающие элементы за границы таблицы */
 }
 
 table th, table td {
@@ -86,4 +88,19 @@ table tr:hover {
 /* Эффект при наведении на кнопку */
 .buy-button:hover {
     background-color: #45a049;  /* более темный зеленый при наведении */
+}
+
+/* Стили для футера */
+footer {
+    width: 100%; /* Занимает всю ширину экрана */
+    position: absolute; /* Закрепляем внизу */
+    bottom: 0; /* Прижимаем к низу страницы */
+    left: 0;
+    text-align: center; /* Центрируем содержимое */
+}
+
+footer img {
+    width: 100%; /* Растягиваем изображение на всю ширину */
+    height: auto; /* Сохраняем пропорции */
+    display: block; /* Убираем лишние отступы */
 }

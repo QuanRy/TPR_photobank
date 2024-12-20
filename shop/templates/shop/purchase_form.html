@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Покупка</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/css/styles_purchase.css">  <!-- Подключаем тот же стиль -->
 </head>
+
 <body>
+
+    <!-- Хедер с логотипом -->
+    <header>
+        <a href="{% url 'index' %}">
+            <img src="../../../static/img/home_logo.svg" alt="Логотип">
+        </a>
+    </header>
+
+    <!-- Основной контент -->
     <div>
         <h3>Покупка</h3>
-        <form method="post">{% csrf_token %}
+        <form method="post">
+            {% csrf_token %}
             <input type="hidden" value="{{ view.kwargs.product_id }}" name="product" />
             <table>
                 <tr>
@@ -20,9 +32,17 @@
                         <input type="text" name="address" />
                     </td>
                 </tr>
-                <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
             </table>
         </form>
+        <!-- Переносим кнопку отправки из таблицы и центрируем её -->
+        <div class="submit-button-container">
+            <input type="submit" value="Отправить" />
+        </div>
     </div>
+
+    <footer>
+        <img src="../../../static/img/footer_without_back.png" alt="Футер">
+    </footer>
+
 </body>
 </html>
