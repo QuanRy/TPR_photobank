@@ -1,0 +1,89 @@
+/* Стили для страницы */
+body {
+    background-image: url('../img/background.jpg'); /* Замените на путь к вашей картинке */
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    color: black;
+}
+
+/* Стили для хедера с логотипом */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+header img {
+    height: 50px;
+}
+
+/* Стили для основного контента */
+.content {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+/* Общие стили для таблицы */
+table {
+    width: 50%;  /* Половина ширины экрана */
+    margin: 20px auto;  /* Центрируем таблицу по горизонтали с отступом сверху и снизу */
+    border-collapse: collapse;
+    background-color: #f9f9f9;  /* светлый фон таблицы */
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;  /* выравнивание текста по центру */
+    border: 1px solid #ddd;  /* светлая граница для ячеек */
+    color: #333;  /* дефолтный цвет текста (черный) */
+}
+
+/* Заголовки таблицы */
+table th {
+    background-color: #f0f0f0;  /* светло-серый фон для заголовков */
+    font-weight: bold;
+}
+
+/* Чередующиеся строки с эффектом зебры */
+table tr:nth-child(even) {
+    background-color: #e8e8e8;  /* чуть темнее для четных строк */
+}
+
+table tr:nth-child(odd) {
+    background-color: #f9f9f9;  /* чуть светлее для нечетных строк */
+}
+
+/* Стили для строк при наведении */
+table tr:hover {
+    background-color: #dcdcdc;  /* цвет при наведении на строку */
+}
+
+/* Стили для кнопки "Купить" */
+.buy-button {
+    background-color: #4CAF50;  /* зеленый фон кнопки */
+    color: white;  /* белый текст */
+    padding: 10px 15px;
+    border-radius: 30px;  /* круглые края */
+    text-decoration: none;  /* убираем подчеркивание */
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.buy-button i {
+    margin-right: 8px;  /* отступ для иконки */
+}
+
+/* Эффект при наведении на кнопку */
+.buy-button:hover {
+    background-color: #45a049;  /* более темный зеленый при наведении */
+}
