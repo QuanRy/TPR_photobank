@@ -88,6 +88,24 @@
             }));
         }
 
+        // Применение скидки и изменение цвета цены
+        function applyDiscount() {
+            // Пройдемся по всем товарам в корзине и применим скидку
+            let total = 0;
+            for (let type in cart) {
+                cart[type].forEach(item => {
+                    const originalPrice = item.price;
+                    const discountedPrice = originalPrice * 0.6; // Скидка 40%
+                    total += discountedPrice;
+                    document.getElementById('total-price-' + item.id).innerText = discountedPrice.toFixed(2);
+                    document.getElementById('total-price-' + item.id).style.color = '#4CAF50'; // Светло-зеленый цвет
+                });
+            }
+
+            // Обновим общую сумму с учетом скидки
+            localStorage.setItem('totalAmount', total.toFixed(2));
+        }
+
         // Функция для изменения количества товара
         function changeQuantity(productId, action) {
             const quantityInput = document.getElementById('quantity-' + productId);
