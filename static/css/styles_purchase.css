@@ -36,7 +36,10 @@ header img {
 
 /* Общие стили для таблицы */
 table {
-    width: 50%;  /* Половина ширины экрана */
+    width: fit-content !important;
+}
+
+table {
     margin: 20px auto;  /* Центрируем таблицу по горизонтали с отступом сверху и снизу */
     border-collapse: collapse;
     background-color: #f9f9f9;  /* светлый фон таблицы */
@@ -119,4 +122,5 @@ footer img {
     width: 100%; /* Растягиваем изображение на всю ширину */
     height: auto; /* Сохраняем пропорции */
     display: block; /* Убираем лишние отступы */
+    max-block-size: 160px;
 }

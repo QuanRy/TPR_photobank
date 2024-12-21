@@ -31,9 +31,12 @@ header img {
     padding: 50px 20px;
 }
 
+table {
+    width: fit-content !important;
+}
+
 /* Общие стили для таблицы */
 table {
-    width: fit-content; /* Половина ширины экрана */
     margin: 20px auto;  /* Центрируем таблицу по горизонтали с отступом сверху и снизу */
     border-collapse: collapse;
     background-color: #f9f9f9;  /* светлый фон таблицы */
@@ -96,6 +99,127 @@ table tr:hover {
     background-color: #45a049;  /* более темный зеленый при наведении */
 }
 
+
+/* Стили для новой кнопки */
+.center-button {
+    text-align: center;  /* Центрируем кнопку по горизонтали */
+    margin-top: 20px;  /* Отступ сверху от таблицы */
+}
+
+.center-button .buy-button {
+    background-color: #4CAF50;  /* Зеленый фон */
+    color: white;  /* Белый текст */
+    padding: 10px 15px;  /* Паддинг для кнопки */
+    border-radius: 30px;  /* Округленные углы */
+    font-weight: bold;  /* Жирный шрифт */
+    text-decoration: none;  /* Убираем подчеркивание */
+    display: inline-block;  /* Делаем кнопку блочной */
+    text-align: center;  /* Центрируем текст внутри кнопки */
+    transition: background-color 0.3s ease;  /* Плавный переход для фона */
+}
+
+.center-button .buy-button i {
+    margin-right: 8px;  /* Отступ между иконкой и текстом */
+}
+
+/* Эффект при наведении */
+.center-button .buy-button:hover {
+    background-color: #45a049;  /* Темнее при наведении */
+}
+
+
+
+
+
+
+/* Стили для управления корзиной */
+.cart-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;  /* Добавим небольшой отступ сверху */
+}
+
+/* Поле ввода количества товара */
+.cart-controls input.quantity-input {
+    width: 60px;  /* Чуть больше, чтобы было удобнее вводить количество */
+    padding: 5px;
+    text-align: center;  /* Центрируем текст в поле */
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* Кнопки изменения количества товара (+ и -) */
+.cart-controls .change-quantity {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Эффект при наведении на кнопки изменения количества */
+.cart-controls .change-quantity:hover {
+    background-color: #45a049;
+}
+
+/* Отображение итоговой цены */
+.cart-controls .total-price {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Кнопка "Отменить" */
+.cart-controls .cancel-button {
+    padding: 5px 10px;
+    background-color: #f44336;  /* Красный фон */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Эффект при наведении на кнопку "Отменить" */
+.cart-controls .cancel-button:hover {
+    background-color: darkred;
+}
+
+/* Кнопка изменения количества (+) */
+.cart-controls .increase-quantity {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Кнопка изменения количества (-) */
+.cart-controls .decrease-quantity {
+    background-color: #f44336;
+    color: white;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Эффект при наведении на кнопки изменения количества (+ и -) */
+.cart-controls .increase-quantity:hover {
+    background-color: #45a049;
+}
+
+.cart-controls .decrease-quantity:hover {
+    background-color: darkred;
+}
+
 /* Стили для футера */
 footer {
     width: 100%; /* Занимает всю ширину экрана */
@@ -109,4 +233,5 @@ footer img {
     width: 100%; /* Растягиваем изображение на всю ширину */
     height: auto; /* Сохраняем пропорции */
     display: block; /* Убираем лишние отступы */
+    max-block-size: 160px;
 }
