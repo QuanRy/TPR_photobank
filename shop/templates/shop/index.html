@@ -49,7 +49,7 @@
         </table>
 
         <div class="center-button">
-            <a href="/purchase_form/" class="buy-button">
+            <a href="javascript:void(0);" onclick="proceedToPurchase()">
                 <i class="fa fa-plus"></i> Перейти в корзину
             </a>
         </div>
@@ -59,6 +59,9 @@
     <footer>
         <img src="../../../static/img/footer_without_back.png" alt="Футер">
     </footer>
+
+
+
 
     <script>
         // Функция для добавления товара в корзину
@@ -121,6 +124,36 @@
 
             // Удалить товар из localStorage
             localStorage.removeItem('cart-' + productId);
+        }
+
+
+        // Функция для вычисления общей суммы активных товаров
+        function calculateTotalAmount() {
+            let total = 0;
+
+            // Найти все видимые элементы total-price
+            document.querySelectorAll('.cart-controls').forEach((controls) => {
+                if (controls.style.display !== 'none') {
+                    const totalPriceElement = controls.querySelector('.total-price');
+                    total += parseFloat(totalPriceElement.innerText);
+                }
+            });
+
+            return total.toFixed(2); // Возвращаем сумму с двумя знаками после запятой
+        }
+
+        // Функция для перехода в корзину
+        function proceedToPurchase() {
+            const totalAmount = calculateTotalAmount();
+            if (totalAmount > 0) {
+                // Сохранить общую сумму в localStorage
+                localStorage.setItem('totalAmount', totalAmount);
+
+                // Перейти на страницу покупки
+                window.location.href = '{% url "buy" product_id=0 %}';
+            } else {
+                alert('Вы не добавили товары в корзину!');
+            }
         }
     </script>
 

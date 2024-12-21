@@ -22,6 +22,17 @@
             <input type="hidden" value="{{ view.kwargs.product_id }}" name="product" />
             <table>
                 <tr>
+                    <td><p>К уплате:</p></td>
+                    <td>
+                        <input 
+                        type="text" 
+                        name="total_amount" 
+                        value="{{ total_price }}" 
+                        readonly 
+                        style="pointer-events: none;" 
+                    /></td>
+                </tr>
+                <tr>
                     <td><p>Введите свое имя </p></td>
                     <td><input type="text" name="person" /> </td>
                 </tr>
