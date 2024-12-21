@@ -135,24 +135,29 @@
         function cancelAddition(productId, type) {
             const controls = document.getElementById('controls-' + productId);
             const button = document.querySelector(`a[data-product-id='${productId}']`);
-
+            const totalPriceElement = document.getElementById('total-price-' + productId);
+    
             // Скрыть элементы управления
             controls.style.display = 'none';
-
+    
             // Показать кнопку "В корзину"
             button.style.display = 'inline-block';
-
+    
             // Удалить товар из корзины
             delete cart[productId];
-
+    
             // Удалить тип товара из списка типов, если товар этого типа больше нет
             if (cart[productId] === undefined) {
                 typesInCart = typesInCart.filter(item => item !== type);
             }
-
+    
             // Пересчитать скидку
             discountApplied = false;
             applyDiscountIfNeeded();
+    
+            // Сбросить цвет и цену товара на черный (если скидка была применена)
+            totalPriceElement.style.color = 'black';
+            totalPriceElement.innerText = cart[productId] ? cart[productId].price * cart[productId].quantity : 0;
         }
 
         // Функция для вычисления общей суммы
