@@ -32,7 +32,7 @@
                         <td>{{ p.type }}</td>
                         <td>{{ p.price }}</td>
                         <td>
-                            <a href="javascript:void(0);" class="buy-button" data-product-id="{{ p.id }}" onclick="addToCart(event, {{ p.price }})">
+                            <a href="javascript:void(0);" class="buy-button" data-product-id="{{ p.id }}" data-product-type="{{ p.type }}" onclick="addToCart(event, {{ p.id }}, {{ p.price }}, '{{ p.type }}')">
                                 <i class="fa fa-shopping-cart"></i> В корзину
                             </a>
                             <div class="cart-controls" id="controls-{{ p.id }}" style="display:none;">
@@ -40,7 +40,7 @@
                                 <button class="change-quantity" onclick="changeQuantity({{ p.id }}, 'increase')">+</button>
                                 <button class="change-quantity" onclick="changeQuantity({{ p.id }}, 'decrease')">-</button>
                                 <span class="total-price" id="total-price-{{ p.id }}">{{ p.price }}</span>
-                                <button class="cancel-button" onclick="cancelAddition({{ p.id }})">Отменить</button>
+                                <button class="cancel-button" onclick="cancelAddition({{ p.id }}, '{{ p.type }}')">Отменить</button>
                             </div>
                         </td>
                     </tr>
@@ -60,14 +60,15 @@
         <img src="../../../static/img/footer_without_back.png" alt="Футер">
     </footer>
 
-
-
-
     <script>
+        // Массив для отслеживания типов товаров в корзине
+        let cart = {}; // { id: {type, price, quantity} }
+        let typesInCart = []; // Массив для хранения типов товаров
+        let discountApplied = false; // Флаг для проверки, была ли применена скидка
+
         // Функция для добавления товара в корзину
-        function addToCart(event, price) {
+        function addToCart(event, productId, price, type) {
             const button = event.target.closest('a');
-            const productId = button.getAttribute('data-product-id');
             const controls = document.getElementById('controls-' + productId);
             const quantityInput = document.getElementById('quantity-' + productId);
             const totalPriceElement = document.getElementById('total-price-' + productId);
@@ -78,40 +79,44 @@
             // Скрыть кнопку "В корзину"
             button.style.display = 'none';
 
-            // Инициализация отображаемой цены
+            // Обновить цену с учетом количества
             totalPriceElement.innerText = price * parseInt(quantityInput.value);
 
-            // Убедиться, что товар добавлен в корзину с начальным количеством 1
-            localStorage.setItem('cart-' + productId, JSON.stringify({
-                quantity: 1,
-                price: price
-            }));
-        }
+            // Добавить товар в корзину
+            cart[productId] = { type: type, price: price, quantity: 1 };
 
-        // Применение скидки и изменение цвета цены
-        function applyDiscount() {
-            // Пройдемся по всем товарам в корзине и применим скидку
-            let total = 0;
-            for (let type in cart) {
-                cart[type].forEach(item => {
-                    const originalPrice = item.price;
-                    const discountedPrice = originalPrice * 0.6; // Скидка 40%
-                    total += discountedPrice;
-                    document.getElementById('total-price-' + item.id).innerText = discountedPrice.toFixed(2);
-                    document.getElementById('total-price-' + item.id).style.color = '#4CAF50'; // Светло-зеленый цвет
-                });
+            // Добавить тип товара в список типов (если еще не добавлен)
+            if (!typesInCart.includes(type)) {
+                typesInCart.push(type);
             }
 
-            // Обновим общую сумму с учетом скидки
-            localStorage.setItem('totalAmount', total.toFixed(2));
+            // Применяем скидку, если корзина соответствует условиям
+            applyDiscountIfNeeded();
         }
 
-        // Функция для изменения количества товара
+        // Применение скидки на третий товар, если в корзине два разных типа товаров
+        function applyDiscountIfNeeded() {
+            if (typesInCart.length >= 2 && Object.keys(cart).length === 3 && !discountApplied) {
+                // Применить скидку на третий товар
+                const thirdProductId = Object.keys(cart)[2]; // Третий товар в корзине
+                const thirdProduct = cart[thirdProductId];
+                const discountedPrice = thirdProduct.price * 0.6;
+
+                // Изменяем цену и цвет на зеленый
+                const totalPriceElement = document.getElementById('total-price-' + thirdProductId);
+                totalPriceElement.innerText = discountedPrice.toFixed(2);
+                totalPriceElement.style.color = '#4CAF50'; // Зеленый
+
+                discountApplied = true; // Скидка применена
+            }
+        }
+
+        // Функция для изменения количества товара в корзине
         function changeQuantity(productId, action) {
             const quantityInput = document.getElementById('quantity-' + productId);
             const totalPriceElement = document.getElementById('total-price-' + productId);
             let quantity = parseInt(quantityInput.value);
-            const price = JSON.parse(localStorage.getItem('cart-' + productId)).price;
+            const price = cart[productId].price;
 
             if (action === 'increase') {
                 quantity += 1;
@@ -122,15 +127,12 @@
             quantityInput.value = quantity;
             totalPriceElement.innerText = price * quantity;
 
-            // Обновить в localStorage
-            localStorage.setItem('cart-' + productId, JSON.stringify({
-                quantity: quantity,
-                price: price
-            }));
+            // Обновить количество товара в корзине
+            cart[productId].quantity = quantity;
         }
 
-        // Функция для отмены добавления товара
-        function cancelAddition(productId) {
+        // Функция для отмены добавления товара в корзину
+        function cancelAddition(productId, type) {
             const controls = document.getElementById('controls-' + productId);
             const button = document.querySelector(`a[data-product-id='${productId}']`);
 
@@ -140,22 +142,29 @@
             // Показать кнопку "В корзину"
             button.style.display = 'inline-block';
 
-            // Удалить товар из localStorage
-            localStorage.removeItem('cart-' + productId);
+            // Удалить товар из корзины
+            delete cart[productId];
+
+            // Удалить тип товара из списка типов, если товар этого типа больше нет
+            if (cart[productId] === undefined) {
+                typesInCart = typesInCart.filter(item => item !== type);
+            }
+
+            // Пересчитать скидку
+            discountApplied = false;
+            applyDiscountIfNeeded();
         }
 
-
-        // Функция для вычисления общей суммы активных товаров
+        // Функция для вычисления общей суммы
         function calculateTotalAmount() {
             let total = 0;
 
-            // Найти все видимые элементы total-price
-            document.querySelectorAll('.cart-controls').forEach((controls) => {
-                if (controls.style.display !== 'none') {
-                    const totalPriceElement = controls.querySelector('.total-price');
-                    total += parseFloat(totalPriceElement.innerText);
-                }
-            });
+            // Пройдемся по всем товарам в корзине
+            for (let productId in cart) {
+                let product = cart[productId];
+                const price = product.price * (discountApplied && productId === Object.keys(cart)[2] ? 0.6 : 1); // Если скидка, применяем 0.6
+                total += price * product.quantity;
+            }
 
             return total.toFixed(2); // Возвращаем сумму с двумя знаками после запятой
         }
