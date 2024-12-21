@@ -27,7 +27,7 @@
                         <input 
                         type="text" 
                         name="total_amount" 
-                        value="{{ total_price }}" 
+                        value="" 
                         readonly 
                         style="pointer-events: none;" 
                     /></td>
@@ -55,3 +55,17 @@
 
 </body>
 </html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Извлекаем общую сумму из localStorage
+        const totalAmount = localStorage.getItem('totalAmount');
+
+        // Если сумма существует, вставляем её в поле "К уплате"
+        if (totalAmount) {
+            document.querySelector('input[name="total_amount"]').value = totalAmount;
+        } else {
+            alert('Ошибка: сумма заказа не найдена!');
+        }
+    });
+</script>
