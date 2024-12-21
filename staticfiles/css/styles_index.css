@@ -39,7 +39,13 @@ table {
     background-color: #f9f9f9;  /* светлый фон таблицы */
     border-radius: 15px; /* Округляем края */
     overflow: hidden; /* Убираем выступающие элементы за границы таблицы */
+    max-height: 400px;  /* Максимальная высота таблицы */
+    display: block; /* Чтобы задать прокрутку, таблица должна быть блоком */
+    overflow-y: auto;
+    table-layout: fixed;  /* Устанавливаем фиксированную ширину для ячеек */
 }
+
+
 
 table th, table td {
     padding: 10px;

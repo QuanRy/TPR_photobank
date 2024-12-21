@@ -1,8 +1,12 @@
+# Для инициализации БД, при первом запуске проги
+# сама команда - python manage.py loaddata products.yaml
+
 - model: shop.product
   pk: 1
   fields:
     name: Стол
     price: 2000
+    type: 1
 - model: shop.product
   pk: 2
   fields:
@@ -13,3 +17,8 @@
   fields:
     name: Табурет
     price: 500
+- model: shop.product
+  pk: 4
+  fields:
+    name: Диван
+    price: 10000

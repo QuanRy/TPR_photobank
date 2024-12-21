@@ -18,8 +18,7 @@
     <!-- Основной контент -->
     <div>
         <h3>Покупка</h3>
-        <form method="post">
-            {% csrf_token %}
+        <form method="post">{% csrf_token %}
             <input type="hidden" value="{{ view.kwargs.product_id }}" name="product" />
             <table>
                 <tr>
@@ -33,11 +32,12 @@
                     </td>
                 </tr>
             </table>
+             <!-- Переносим кнопку отправки из таблицы и центрируем её -->
+            <div class="submit-button-container">
+                <input type="submit" value="Отправить" />
+            </div>
         </form>
-        <!-- Переносим кнопку отправки из таблицы и центрируем её -->
-        <div class="submit-button-container">
-            <input type="submit" value="Отправить" />
-        </div>
+       
     </div>
 
     <footer>

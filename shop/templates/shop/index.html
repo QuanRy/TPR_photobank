@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru">
-    
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>MotoCREW.org/Главная</title>
@@ -18,22 +17,28 @@
     <div class="content">
         <h3>Список товаров</h3>
         <table>
-            <tr>
-                <th>Наименование</th>
-                <th>Цена</th>
-                <th>Действие</th>
-            </tr>
-            {% for p in products %}
+            <thead>
                 <tr>
-                    <td>{{ p.name }}</td>
-                    <td>{{ p.price }}</td>
-                    <td>
-                        <a href="/buy/{{ p.id }}" class="buy-button">
-                            <i class="fa fa-shopping-cart"></i> Купить
-                        </a>
-                    </td>
+                    <th>Наименование</th>
+                    <th>Тип</th>
+                    <th>Цена</th>
+                    <th>Действие</th>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for p in products %}
+                    <tr>
+                        <td>{{ p.name }}</td>
+                        <td>{{ p.type }}</td>
+                        <td>{{ p.price }}</td>
+                        <td>
+                            <a href="/buy/{{ p.id }}" class="buy-button">
+                                <i class="fa fa-shopping-cart"></i> Купить
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
 
