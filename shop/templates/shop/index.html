@@ -150,9 +150,30 @@
                 localStorage.setItem('totalAmount', totalAmount);
 
                 // Перейти на страницу покупки
-                window.location.href = '{% url "buy" product_id=0 %}';
+                window.location.href = '{% url "buy" product_id=1 %}';
             } else {
-                alert('Вы не добавили товары в корзину!');
+                // Создаем кастомное сообщение с красным фоном и восклицательным знаком
+                const alertDiv = document.createElement('div');
+                alertDiv.textContent = '! Вы не добавили товары в корзину !';
+                alertDiv.style.position = 'fixed';
+                alertDiv.style.top = '80px';
+                alertDiv.style.left = '50%';
+                alertDiv.style.transform = 'translateX(-50%)';
+                alertDiv.style.backgroundColor = '#f44336'; // Красный фон
+                alertDiv.style.color = 'white'; // Белый текст
+                alertDiv.style.padding = '10px 20px';
+                alertDiv.style.fontSize = '18px';
+                alertDiv.style.borderRadius = '5px';
+                alertDiv.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                alertDiv.style.zIndex = '9999';
+    
+                // Добавляем сообщение на страницу
+                document.body.appendChild(alertDiv);
+    
+                // Через 3 секунды скрываем сообщение
+                setTimeout(() => {
+                    alertDiv.style.display = 'none';
+                }, 3000);
             }
         }
     </script>
