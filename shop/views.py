@@ -30,12 +30,13 @@ def calculate_discount(request):
                 discounted_price = product.price * 0.6  # Применяем скидку для третьего товара
             else:
                 discounted_price = product.price
-            discounted_prices[product.id] = discounted_price
+            discounted_prices[str(product.id)] = discounted_price  # Преобразуем ID в строку
             total_price += discounted_price
 
         return JsonResponse({'total_price': total_price, 'discounted_prices': discounted_prices})
 
     return JsonResponse({'error': 'Неверный метод запроса'}, status=400)
+
 
 
 class PurchaseCreate(CreateView):
