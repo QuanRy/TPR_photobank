@@ -101,12 +101,9 @@ table tr:hover {
 
 
 /* Стили для новой кнопки */
-.center-button {
+.center-button a {
     text-align: center;  /* Центрируем кнопку по горизонтали */
     margin-top: 20px;  /* Отступ сверху от таблицы */
-}
-
-.center-button .buy-button {
     background-color: #4CAF50;  /* Зеленый фон */
     color: white;  /* Белый текст */
     padding: 10px 15px;  /* Паддинг для кнопки */
@@ -118,12 +115,24 @@ table tr:hover {
     transition: background-color 0.3s ease;  /* Плавный переход для фона */
 }
 
-.center-button .buy-button i {
+.center-button a .buy-button {
+    background-color: #4CAF50;  /* Зеленый фон */
+    color: white;  /* Белый текст */
+    padding: 10px 15px;  /* Паддинг для кнопки */
+    border-radius: 30px;  /* Округленные углы */
+    font-weight: bold;  /* Жирный шрифт */
+    text-decoration: none;  /* Убираем подчеркивание */
+    display: inline-block;  /* Делаем кнопку блочной */
+    text-align: center;  /* Центрируем текст внутри кнопки */
+    transition: background-color 0.3s ease;  /* Плавный переход для фона */
+}
+
+.center-button a .buy-button i {
     margin-right: 8px;  /* Отступ между иконкой и текстом */
 }
 
 /* Эффект при наведении */
-.center-button .buy-button:hover {
+.center-button a .buy-button:hover {
     background-color: #45a049;  /* Темнее при наведении */
 }
 
