@@ -1,6 +1,6 @@
-/* Стили для страницы */
+
 body {
-    background-image: url('../img/background.jpg'); /* Замените на путь к вашей картинке */
+    background-image: url('../img/background.jpg'); 
     background-size: cover;
     background-position: center;
     font-family: Arial, sans-serif;
@@ -13,7 +13,7 @@ h3 {
     color: black;
 }
 
-/* Стили для хедера с логотипом */
+
 header {
     display: flex;
     justify-content: space-between;
@@ -25,7 +25,7 @@ header img {
     height: 50px;
 }
 
-/* Стили для основного контента */
+
 .content {
     text-align: center;
     padding: 50px 20px;
@@ -37,29 +37,29 @@ table {
 
 /* Общие стили для таблицы */
 table {
-    margin: 20px auto;  /* Центрируем таблицу по горизонтали с отступом сверху и снизу */
+    margin: 20px auto;  
     border-collapse: collapse;
-    background-color: #f9f9f9;  /* светлый фон таблицы */
-    border-radius: 15px; /* Округляем края */
-    overflow: hidden; /* Убираем выступающие элементы за границы таблицы */
-    max-height: 425px;  /* Максимальная высота таблицы */
-    display: block; /* Чтобы задать прокрутку, таблица должна быть блоком */
+    background-color: #f9f9f9;  
+    border-radius: 15px; 
+    overflow: hidden; 
+    max-height: 425px;  
+    display: block; 
     overflow-y: auto;
-    table-layout: fixed;  /* Устанавливаем фиксированную ширину для ячеек */
+    table-layout: fixed;  
 }
 
 
 
 table th, table td {
     padding: 10px;
-    text-align: center;  /* выравнивание текста по центру */
-    border: 1px solid #ddd;  /* светлая граница для ячеек */
-    color: #333;  /* дефолтный цвет текста (черный) */
+    text-align: center;  
+    border: 1px solid #ddd;  
+    color: #333;  
 }
 
 /* Заголовки таблицы */
 table th {
-    background-color: #f0f0f0;  /* светло-серый фон для заголовков */
+    background-color: #f0f0f0;  
     font-weight: bold;
 }
 
