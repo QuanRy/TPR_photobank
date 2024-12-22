@@ -12,9 +12,6 @@ def index(request):
 
 
 def calculate_discount(request):
-    """
-    API-эндпоинт для расчета скидки.
-    """
     if request.method == "POST":
         cart = request.POST.getlist('cart')  # Получаем корзину из запроса
         cart_data = [int(item) for item in cart]  # Преобразуем в список ID товаров
