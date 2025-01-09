@@ -3,17 +3,64 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    color: #000; /* Черный текст */
-    background-color: #fafafa; /* Светлый фон */
+    color: #000;
+    background-color: #fafafa;
 }
 
+h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Хедер */
 header {
-    text-align: center;
-    padding: 20px;
     background-color: #f4f4f4;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
 }
 
-/* Стили секций */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    font-size: 14px;
+}
+
+.search-button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.search-button:hover {
+    background-color: #45a049;
+}
+
+/* Слайдер */
 .slider-section {
     margin: 20px auto;
     max-width: 80%;
@@ -21,6 +68,7 @@ header {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 
 .slider-title {
@@ -51,7 +99,7 @@ header {
 }
 
 .slider-item:hover img {
-    transform: scale(1.1); /* Увеличение при наведении */
+    transform: scale(1.1);
 }
 
 .slider-item .description {
@@ -65,26 +113,52 @@ header {
     margin-top: 5px;
 }
 
-/* Управление слайдером */
-.slider-controls {
-    position: absolute;
-    top: 50%;
-    width: 100%;
+
+
+/* Футер */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+
+.footer-container {
     display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px; /* Расстояние между колонками */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
 }
 
-.slider-controls button {
-    background-color: rgba(0, 0, 0, 0.5);
-    border: none;
-    color: white;
-    font-size: 18px;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
+.footer-container h3 {
+    margin: 0;
+    font-size: 16px;
 }
 
-.slider-controls button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+.footer-column {
+    text-align: center;
 }
+
+.footer-column p {
+    margin: 5px 0;
+}
+
+.footer-column a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.footer-column a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #aaa;
+}
+

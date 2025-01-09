@@ -8,7 +8,13 @@
 
 <body>
     <header>
-        <h1>Новый год 2025</h1>
+        <div class="header-container">
+            <h1>Photobank QuanRy-photo</h1>
+            <div class="search-container">
+                <input type="text" placeholder="Поиск..." class="search-input">
+                <button class="search-button">Поиск</button>
+            </div>
+        </div>
     </header>
 
     <!-- Секция "Новый год" -->
@@ -88,6 +94,22 @@
             <button onclick="slide('slider-cities', 1)">&rarr;</button>
         </div>
     </div>
+
+    <footer>
+        <div class="footer-container">
+            <h3>FAQ</h3>
+            <h3>Связаться с нами</h3>
+            <div class="footer-column">
+                <h3>Наши контакты</h3>
+                <p><a href="https://vk.com" target="_blank">ВК</a></p>
+                <p><a href="https://github.com" target="_blank">GitHub</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; Photobank QuanRy 2024–2025</p>
+        </div>
+    </footer>
+    
 
     <script>
         function slide(sliderId, direction) {
