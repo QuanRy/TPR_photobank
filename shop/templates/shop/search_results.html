@@ -7,53 +7,114 @@
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <h1>Photobank QuanRy-photo</h1>
-        <div class="search-container">
-            <input type="text" value="{{ hashtag }}" placeholder="Поиск..." class="search-input">
-            <button class="search-button">Поиск</button>
-        </div>
-    </div>
-</header>
+    <header>
+        <div class="header-container">
+            
+            <a href="{% url 'index' %}" class="logo-container">
+                <img src="../../../static/img/home_logo.svg" alt="Home Logo" class="logo">
+            </a>
 
-<div class="slider-section">
-    <h2 class="slider-title">Результаты поиска по хэштегу: {{ hashtag }}</h2>
-    <div class="slider-container" id="slider-search">
-        {% for photo in photos %}
-            <div class="slider-item">
-                <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
-                <div class="description">{{ photo.description }}</div>
-                <div class="hashtags">
-                    {% for hashtag in photo.get_hashtags_list %}
-                        <span class="hashtag">{{ hashtag }}</span>
-                    {% endfor %}
-                </div>
-                <div class="price-container">
-                    <div class="price">{{ photo.price }} $</div>
-                    <button class="buy-button">Купить</button>
-                </div>
+            <h1>Photobank QuanRy-photo</h1>
+
+            <div class="search-container">
+                <input type="text" placeholder="Поиск..." class="search-input" id="search-input">
+                <button class="search-button" onclick="searchHashtag()">Поиск</button>
             </div>
-        {% empty %}
-            <p>Фотографии с этим хэштегом не найдены.</p>
-        {% endfor %}
-    </div>
-</div>
 
-<footer>
-    <div class="footer-container">
-        <h3>FAQ</h3>
-        <h3>Связаться с нами</h3>
-        <div class="footer-column">
-            <h3>Наши контакты</h3>
-            <p><a href="https://vk.com" target="_blank">ВК</a></p>
-            <p><a href="https://github.com" target="_blank">GitHub</a></p>
+        </div>
+    </header>
+
+    <div class="slider-section">
+        <h2 class="slider-title">Результаты поиска по хэштегу: {{ hashtag }}</h2>
+        <div class="slider-container" id="search-slider">
+            {% for photo in photos %}
+                <div class="slider-item">
+                    <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
+                    <div class="description">{{ photo.description }}</div>
+                    <div class="hashtags">
+                        {% for hashtag in photo.get_hashtags_list %}
+                            <span class="hashtag">{{ hashtag }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="price-container">
+                        <div class="price">{{ photo.price }} $</div>
+                        <button class="buy-button">Купить</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="slider-controls">
+            <button onclick="slide('search-slider', -1)">&larr;</button>
+            <button onclick="slide('search-slider', 1)">&rarr;</button>
         </div>
     </div>
-    <div class="footer-bottom">
-        <p>&copy; Photobank QuanRy 2024–2025</p>
-    </div>
-</footer>
 
+    <footer>
+        <div class="footer-container">
+            <h3>FAQ</h3>
+            <h3>Связаться с нами</h3>
+            <div class="footer-column">
+                <h3>Наши контакты</h3>
+                <p><a href="https://vk.com" target="_blank">ВК</a></p>
+                <p><a href="https://github.com" target="_blank">GitHub</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; Photobank QuanRy 2024–2025</p>
+        </div>
+    </footer>
+
+
+    <script>
+        function slide(sliderId, direction) {
+            const slider = document.getElementById(sliderId);
+            const items = slider.getElementsByClassName('slider-item');
+            let currentIndex = 0;
+            
+            // Найти текущий индекс
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].style.display !== 'none') {
+                    currentIndex = i;
+                    break;
+                }
+            }
+        
+            // Скрыть текущий элемент
+            items[currentIndex].style.display = 'none';
+            
+            // Вычислить новый индекс
+            let newIndex = currentIndex + direction;
+            if (newIndex < 0) {
+                newIndex = items.length - 1; // если слева, то идем в конец
+            } else if (newIndex >= items.length) {
+                newIndex = 0; // если справа, то идем на начало
+            }
+            // Показать новый элемент
+            items[newIndex].style.display = 'block';
+            slider.style.transition = 'transform 0.5s ease';
+            slider.style.transform = `translateX(${offset}%)`;
+        }
+
+
+        // Функция для поиска по хэштегу из поля поиска
+        function searchHashtag() {
+            const hashtag = document.getElementById('search-input').value;
+            if (hashtag) {
+                window.location.href = `/search/?hashtag=${encodeURIComponent(hashtag)}`;  // Кодируем хэштег перед передачей в URL
+            }
+        }
+
+        // Добавим обработку кликов по хэштегам
+        document.addEventListener("DOMContentLoaded", function () {
+            const hashtags = document.querySelectorAll('.hashtag');
+            hashtags.forEach(function (hashtag) {
+                hashtag.addEventListener('click', function () {
+                    const hashtagText = this.innerText;  // Получаем текст хэштега
+                    window.location.href = `/search/?hashtag=${encodeURIComponent(hashtagText)}`;  // Кодируем хэштег перед передачей в URL
+                });
+            });
+        });
+        
+    </script>
 </body>
 </html>

@@ -9,11 +9,18 @@
 <body>
     <header>
         <div class="header-container">
+
+            <a href="{% url 'index' %}" class="logo-container">
+                <img src="../../../static/img/home_logo.svg" alt="Home Logo" class="logo">
+            </a>
+
             <h1>Photobank QuanRy-photo</h1>
+
             <div class="search-container">
                 <input type="text" placeholder="Поиск..." class="search-input" id="search-input">
                 <button class="search-button" onclick="searchHashtag()">Поиск</button>
             </div>
+
         </div>
     </header>
 

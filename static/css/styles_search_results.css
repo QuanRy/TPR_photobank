@@ -12,6 +12,27 @@ h1, h2, h3, p {
     padding: 0;
 }
 
+/*  ---------------------- Стили логотипа HOME  ---------------------- */
+.logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px; 
+    height: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.logo:hover {
+    transform: scale(1.1); 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+}
+
 /* ---------------------- Хедер ---------------------- */
 header {
     background-color: #f4f4f4;
