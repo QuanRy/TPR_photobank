@@ -130,11 +130,14 @@
             
             // Вычислить новый индекс
             let newIndex = currentIndex + direction;
-            if (newIndex < 0) newIndex = items.length - 1; // если слева, то идем в конец
-            if (newIndex >= items.length) newIndex = 0; // если справа, то идем на начало
-            
+            if (newIndex < 0) {
+                newIndex = items.length - 1; // если слева, то идем в конец
+            } else if (newIndex >= items.length) {
+                newIndex = 0; // если справа, то идем на начало
+            }
             // Показать новый элемент
             items[newIndex].style.display = 'block';
+            slider.style.transition = 'transform 0.5s ease';
             slider.style.transform = `translateX(${offset}%)`;
         }
         
