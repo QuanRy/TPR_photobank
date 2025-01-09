@@ -26,6 +26,7 @@
                     <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
                     <div class="description">{{ photo.description }}</div>
                     <div class="hashtag">{{ photo.hashtags }}</div>
+                    <div class="price">{{ photo.price }} $</div> <!-- Показываем цену -->
                 </div>
             {% endfor %}
         </div>
@@ -40,13 +41,12 @@
         <h2 class="slider-title">Лето</h2>
         <div class="slider-container" id="slider-summer">
             {% for photo in photos %}
-                {% if photo.category == 'summer' %}
-                    <div class="slider-item">
-                        <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
-                        <div class="description">{{ photo.description }}</div>
-                        <div class="hashtag">{{ photo.hashtags }}</div>
-                    </div>
-                {% endif %}
+                <div class="slider-item">
+                    <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
+                    <div class="description">{{ photo.description }}</div>
+                    <div class="hashtag">{{ photo.hashtags }}</div>
+                    <div class="price">{{ photo.price }} $</div> <!-- Показываем цену -->
+                </div>
             {% endfor %}
         </div>
         <div class="slider-controls">
@@ -60,13 +60,12 @@
         <h2 class="slider-title">Города</h2>
         <div class="slider-container" id="slider-cities">
             {% for photo in photos %}
-                {% if photo.category == 'city' %}
-                    <div class="slider-item">
-                        <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
-                        <div class="description">{{ photo.description }}</div>
-                        <div class="hashtag">{{ photo.hashtags }}</div>
-                    </div>
-                {% endif %}
+                <div class="slider-item">
+                    <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
+                    <div class="description">{{ photo.description }}</div>
+                    <div class="hashtag">{{ photo.hashtags }}</div>
+                    <div class="price">{{ photo.price }} $</div> <!-- Показываем цену -->
+                </div>
             {% endfor %}
         </div>
         <div class="slider-controls">
@@ -93,10 +92,30 @@
 
     <script>
         function slide(sliderId, direction) {
-            const container = document.getElementById(sliderId);
-            const items = container.children;
-            container.appendChild(items[0]); // Смещаем первый элемент в конец
+            const slider = document.getElementById(sliderId);
+            const items = slider.getElementsByClassName('slider-item');
+            let currentIndex = 0;
+            
+            // Найти текущий индекс
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].style.display !== 'none') {
+                    currentIndex = i;
+                    break;
+                }
+            }
+        
+            // Скрыть текущий элемент
+            items[currentIndex].style.display = 'none';
+            
+            // Вычислить новый индекс
+            let newIndex = currentIndex + direction;
+            if (newIndex < 0) newIndex = items.length - 1; // если слева, то идем в конец
+            if (newIndex >= items.length) newIndex = 0; // если справа, то идем на начало
+            
+            // Показать новый элемент
+            items[newIndex].style.display = 'block';
         }
+        
     </script>
 </body>
 </html>
