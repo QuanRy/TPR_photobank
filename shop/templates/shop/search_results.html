@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск по хэштегу: {{ hashtag }}</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/css/styles_search_results.css">
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <h1>Photobank QuanRy-photo</h1>
+        <div class="search-container">
+            <input type="text" value="{{ hashtag }}" placeholder="Поиск..." class="search-input">
+            <button class="search-button">Поиск</button>
+        </div>
+    </div>
+</header>
+
+<div class="slider-section">
+    <h2 class="slider-title">Результаты поиска по хэштегу: {{ hashtag }}</h2>
+    <div class="slider-container" id="slider-search">
+        {% for photo in photos %}
+            <div class="slider-item">
+                <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
+                <div class="description">{{ photo.description }}</div>
+                <div class="hashtags">
+                    {% for hashtag in photo.get_hashtags_list %}
+                        <span class="hashtag">{{ hashtag }}</span>
+                    {% endfor %}
+                </div>
+                <div class="price-container">
+                    <div class="price">{{ photo.price }} $</div>
+                    <button class="buy-button">Купить</button>
+                </div>
+            </div>
+        {% empty %}
+            <p>Фотографии с этим хэштегом не найдены.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <h3>FAQ</h3>
+        <h3>Связаться с нами</h3>
+        <div class="footer-column">
+            <h3>Наши контакты</h3>
+            <p><a href="https://vk.com" target="_blank">ВК</a></p>
+            <p><a href="https://github.com" target="_blank">GitHub</a></p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; Photobank QuanRy 2024–2025</p>
+    </div>
+</footer>
+
+</body>
+</html>

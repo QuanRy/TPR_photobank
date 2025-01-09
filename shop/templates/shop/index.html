@@ -11,8 +11,8 @@
         <div class="header-container">
             <h1>Photobank QuanRy-photo</h1>
             <div class="search-container">
-                <input type="text" placeholder="Поиск..." class="search-input">
-                <button class="search-button">Поиск</button>
+                <input type="text" placeholder="Поиск..." class="search-input" id="search-input">
+                <button class="search-button" onclick="searchHashtag()">Поиск</button>
             </div>
         </div>
     </header>
@@ -112,6 +112,7 @@
     
 
     <script>
+        
         function slide(sliderId, direction) {
             const slider = document.getElementById(sliderId);
             const items = slider.getElementsByClassName('slider-item');
@@ -139,6 +140,14 @@
             items[newIndex].style.display = 'block';
             slider.style.transition = 'transform 0.5s ease';
             slider.style.transform = `translateX(${offset}%)`;
+        }
+
+
+        function searchHashtag() {
+            const hashtag = document.getElementById('search-input').value;
+            if (hashtag) {
+                window.location.href = `/search/?hashtag=${hashtag}`;  // Направляем на страницу поиска с хэштегом
+            }
         }
         
     </script>

@@ -1,0 +1,295 @@
+/* ---------------------- Общие стили ---------------------- */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    background-color: #fafafa;
+}
+
+h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------------------- Хедер ---------------------- */
+header {
+    background-color: #f4f4f4;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    font-size: 14px;
+}
+
+.search-button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.search-button:hover {
+    background-color: #45a049;
+}
+
+/* ---------------------- Слайдер ---------------------- */
+.slider-section {
+    margin: 20px auto;
+    max-width: 80%;
+    position: relative;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.slider-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.slider-container {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+.slider-item {
+    position: relative;
+    flex: 0 0 32.15%; 
+    max-width: 32.33%; 
+    text-align: center;
+    padding: 10px;
+    transition: transform 0.5s ease;
+    margin-bottom: 40px;
+}
+
+.slider-item img {
+    width: 87%; 
+    height: 250px; 
+    border-radius: 8px;
+    object-fit: cover; 
+    transition: transform 0.3s ease;
+}
+
+.slider-item:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+}
+
+.slider-item:hover img {
+    transform: scale(1.1);
+}
+
+.slider-item .description {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.slider-item .hashtag {
+    color: #4CAF50;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.hashtag {
+    font-size: 16px; 
+    transition: font-size 0.2s ease, color 0.2s ease;
+}
+
+.hashtag:hover {
+    font-size: 18px; 
+    color: #3498db; 
+    cursor: pointer; 
+}
+
+
+.price-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: -30px; 
+    left: 50%;
+    gap: 10px;
+    transform: translateX(-50%); 
+    opacity: 0; 
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+.buy-button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+    transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+    background-color: #45a049;
+}
+
+/* Показываем кнопку при наведении на карточку */
+.slider-item:hover .price-container {
+    opacity: 1; /* Показываем */
+}
+
+/* Показываем кнопку при наведении */
+.slider-item:hover .buy-button {
+    transform: translateX(10px);
+}
+
+/* Сдвигаем цену немного влево */
+.slider-item:hover .price {
+    margin-left: 10px;
+}
+
+/* Кнопки управления слайдером */
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none; /* Исключает кнопки из захвата мыши вне их зоны */
+}
+
+.slider-controls button {
+    pointer-events: auto; /* Включает обработку кликов только для кнопок */
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    font-size: 20px;
+}
+
+.slider-controls button:hover {
+    transform: scale(1.2); /* Увеличение при наведении */
+    background-color: rgba(0, 0, 0, 0.7); /* Более насыщенный фон */
+}
+
+/* Левый и правый контролы */
+.slider-controls button:first-child {
+    margin-left: 10px;
+}
+
+.slider-controls button:last-child {
+    margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    .slider-item {
+        flex: 0 0 100%; /* Одна карточка на экран */
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .slider-item {
+        flex: 0 0 50%; /* Две карточки на экран для средних устройств */
+        max-width: 50%;
+    }
+}
+
+
+/* ---------------------- Футер ---------------------- */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px; /* Расстояние между колонками */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.footer-container h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.footer-column {
+    text-align: center;
+}
+
+.footer-column p {
+    margin: 5px 0;
+}
+
+.footer-column a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.footer-column a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #aaa;
+}
+
