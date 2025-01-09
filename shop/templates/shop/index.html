@@ -25,7 +25,11 @@
                 <div class="slider-item">
                     <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
                     <div class="description">{{ photo.description }}</div>
-                    <div class="hashtag">{{ photo.hashtags }}</div>
+                    <div class="hashtags">
+                        {% for hashtag in photo.get_hashtags_list %}
+                            <span class="hashtag">{{ hashtag }}</span>
+                        {% endfor %}
+                    </div>
                     <div class="price">{{ photo.price }} $</div> <!-- Показываем цену -->
                 </div>
             {% endfor %}
@@ -44,7 +48,11 @@
                 <div class="slider-item">
                     <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
                     <div class="description">{{ photo.description }}</div>
-                    <div class="hashtag">{{ photo.hashtags }}</div>
+                    <div class="hashtags">
+                        {% for hashtag in photo.get_hashtags_list %}
+                            <span class="hashtag">{{ hashtag }}</span>
+                        {% endfor %}
+                    </div>
                     <div class="price">{{ photo.price }} $</div> <!-- Показываем цену -->
                 </div>
             {% endfor %}
@@ -63,7 +71,11 @@
                 <div class="slider-item">
                     <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
                     <div class="description">{{ photo.description }}</div>
-                    <div class="hashtag">{{ photo.hashtags }}</div>
+                    <div class="hashtags">
+                        {% for hashtag in photo.get_hashtags_list %}
+                            <span class="hashtag">{{ hashtag }}</span>
+                        {% endfor %}
+                    </div>
                     <div class="price">{{ photo.price }} $</div> <!-- Показываем цену -->
                 </div>
             {% endfor %}
