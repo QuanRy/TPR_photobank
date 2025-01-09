@@ -1,4 +1,4 @@
-/* Общие стили */
+/* ---------------------- Общие стили ---------------------- */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -12,7 +12,7 @@ h1, h2, h3, p {
     padding: 0;
 }
 
-/* Хедер */
+/* ---------------------- Хедер ---------------------- */
 header {
     background-color: #f4f4f4;
     padding: 20px 0;
@@ -60,7 +60,8 @@ header h1 {
     background-color: #45a049;
 }
 
-/* Слайдер */
+/* ---------------------- Слайдер ---------------------- */
+/* Секция слайдера */
 .slider-section {
     margin: 20px auto;
     max-width: 80%;
@@ -77,24 +78,27 @@ header h1 {
     margin-bottom: 10px;
 }
 
+/* Контейнер для слайдов */
 .slider-container {
     display: flex;
     overflow: hidden;
     position: relative;
 }
 
+/* Элементы слайдера */
 .slider-item {
-    flex: 0 0 33.33%;
+    flex: 0 0 32.15%; /* Каждая карточка занимает треть контейнера */
+    max-width: 32.33%; /* Максимальная ширина карточки — 33.33% */
     text-align: center;
-    transition: transform 0.5s ease-in-out;
     padding: 10px;
+    transition: transform 0.5s ease;
 }
 
 .slider-item img {
-    width: 400px;
-    height: 250px;
+    width: 87%; /* Картинка адаптируется по ширине карточки */
+    height: 250px; /* Сохраняются пропорции */
     border-radius: 8px;
-    object-fit: cover;
+    object-fit: cover; /* Центрирование и обрезка изображения */
     transition: transform 0.3s ease;
 }
 
@@ -113,9 +117,63 @@ header h1 {
     margin-top: 5px;
 }
 
+/* Кнопки управления слайдером */
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none; /* Исключает кнопки из захвата мыши вне их зоны */
+}
+
+.slider-controls button {
+    pointer-events: auto; /* Включает обработку кликов только для кнопок */
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    font-size: 20px;
+}
+
+.slider-controls button:hover {
+    transform: scale(1.2); /* Увеличение при наведении */
+    background-color: rgba(0, 0, 0, 0.7); /* Более насыщенный фон */
+}
+
+/* Левый и правый контролы */
+.slider-controls button:first-child {
+    margin-left: 10px;
+}
+
+.slider-controls button:last-child {
+    margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    .slider-item {
+        flex: 0 0 100%; /* Одна карточка на экран */
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .slider-item {
+        flex: 0 0 50%; /* Две карточки на экран для средних устройств */
+        max-width: 50%;
+    }
+}
 
 
-/* Футер */
+/* ---------------------- Футер ---------------------- */
 footer {
     background-color: #333;
     color: #fff;
