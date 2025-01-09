@@ -1,246 +1,90 @@
-
+/* Общие стили */
 body {
-    background-image: url('../img/background.jpg'); 
-    background-size: cover;
-    background-position: center;
     font-family: Arial, sans-serif;
-    color: white;
     margin: 0;
     padding: 0;
+    color: #000; /* Черный текст */
+    background-color: #fafafa; /* Светлый фон */
 }
-
-h3 {
-    color: black;
-}
-
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-}
-
-header img {
-    height: 50px;
-}
-
-
-.content {
     text-align: center;
-    padding: 50px 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
 }
 
-table {
-    width: fit-content !important;
+/* Стили секций */
+.slider-section {
+    margin: 20px auto;
+    max-width: 80%;
+    position: relative;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Общие стили для таблицы */
-table {
-    margin: 20px auto;  
-    border-collapse: collapse;
-    background-color: #f9f9f9;  
-    border-radius: 15px; 
-    overflow: hidden; 
-    max-height: 425px;  
-    display: block; 
-    overflow-y: auto;
-    table-layout: fixed;  
+.slider-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
+.slider-container {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
 
-
-table th, table td {
+.slider-item {
+    flex: 0 0 33.33%;
+    text-align: center;
+    transition: transform 0.5s ease-in-out;
     padding: 10px;
-    text-align: center;  
-    border: 1px solid #ddd;  
-    color: #333;  
 }
 
-/* Заголовки таблицы */
-table th {
-    background-color: #f0f0f0;  
-    font-weight: bold;
+.slider-item img {
+    width: 400px;
+    height: 250px;
+    border-radius: 8px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-/* Чередующиеся строки с эффектом зебры */
-table tr:nth-child(even) {
-    background-color: #e8e8e8;  /* чуть темнее для четных строк */
+.slider-item:hover img {
+    transform: scale(1.1); /* Увеличение при наведении */
 }
 
-table tr:nth-child(odd) {
-    background-color: #f9f9f9;  /* чуть светлее для нечетных строк */
-}
-
-/* Стили для строк при наведении */
-table tr:hover {
-    background-color: #dcdcdc;  /* цвет при наведении на строку */
-}
-
-/* Стили для кнопки "Купить" */
-.buy-button {
-    background-color: #4CAF50;  /* зеленый фон кнопки */
-    color: white;  /* белый текст */
-    padding: 10px 15px;
-    border-radius: 30px;  /* круглые края */
-    text-decoration: none;  /* убираем подчеркивание */
-    font-weight: bold;
-    display: inline-block;
-    text-align: center;
-    transition: background-color 0.3s ease;
-}
-
-.buy-button i {
-    margin-right: 8px;  /* отступ для иконки */
-}
-
-/* Эффект при наведении на кнопку */
-.buy-button:hover {
-    background-color: #45a049;  /* более темный зеленый при наведении */
-}
-
-
-/* Стили для новой кнопки */
-.center-button a {
-    text-align: center;  /* Центрируем кнопку по горизонтали */
-    margin-top: 20px;  /* Отступ сверху от таблицы */
-    background-color: #4CAF50;  /* Зеленый фон */
-    color: white;  /* Белый текст */
-    padding: 10px 15px;  /* Паддинг для кнопки */
-    border-radius: 30px;  /* Округленные углы */
-    font-weight: bold;  /* Жирный шрифт */
-    text-decoration: none;  /* Убираем подчеркивание */
-    display: inline-block;  /* Делаем кнопку блочной */
-    text-align: center;  /* Центрируем текст внутри кнопки */
-    transition: background-color 0.3s ease;  /* Плавный переход для фона */
-}
-
-.center-button a .buy-button {
-    background-color: #4CAF50;  /* Зеленый фон */
-    color: white;  /* Белый текст */
-    padding: 10px 15px;  /* Паддинг для кнопки */
-    border-radius: 30px;  /* Округленные углы */
-    font-weight: bold;  /* Жирный шрифт */
-    text-decoration: none;  /* Убираем подчеркивание */
-    display: inline-block;  /* Делаем кнопку блочной */
-    text-align: center;  /* Центрируем текст внутри кнопки */
-    transition: background-color 0.3s ease;  /* Плавный переход для фона */
-}
-
-.center-button a .buy-button i {
-    margin-right: 8px;  /* Отступ между иконкой и текстом */
-}
-
-/* Эффект при наведении */
-.center-button a .buy-button:hover {
-    background-color: #45a049;  /* Темнее при наведении */
-}
-
-
-
-
-
-
-/* Стили для управления корзиной */
-.cart-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;  /* Добавим небольшой отступ сверху */
-}
-
-/* Поле ввода количества товара */
-.cart-controls input.quantity-input {
-    width: 60px;  /* Чуть больше, чтобы было удобнее вводить количество */
-    padding: 5px;
-    text-align: center;  /* Центрируем текст в поле */
-    border-radius: 5px;
-    border: 1px solid #ddd;
+.slider-item .description {
+    margin-top: 10px;
     font-size: 14px;
 }
 
-/* Кнопки изменения количества товара (+ и -) */
-.cart-controls .change-quantity {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
+.slider-item .hashtag {
+    color: #4CAF50;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Управление слайдером */
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.slider-controls button {
+    background-color: rgba(0, 0, 0, 0.5);
     border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-/* Эффект при наведении на кнопки изменения количества */
-.cart-controls .change-quantity:hover {
-    background-color: #45a049;
-}
-
-/* Отображение итоговой цены */
-.cart-controls .total-price {
-    font-weight: bold;
-    font-size: 16px;
-    color: #333;
-}
-
-/* Кнопка "Отменить" */
-.cart-controls .cancel-button {
-    padding: 5px 10px;
-    background-color: #f44336;  /* Красный фон */
     color: white;
-    border: none;
+    font-size: 18px;
+    padding: 10px;
     cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 50%;
 }
 
-/* Эффект при наведении на кнопку "Отменить" */
-.cart-controls .cancel-button:hover {
-    background-color: darkred;
-}
-
-/* Кнопка изменения количества (+) */
-.cart-controls .increase-quantity {
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-/* Кнопка изменения количества (-) */
-.cart-controls .decrease-quantity {
-    background-color: #f44336;
-    color: white;
-    font-size: 16px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-/* Эффект при наведении на кнопки изменения количества (+ и -) */
-.cart-controls .increase-quantity:hover {
-    background-color: #45a049;
-}
-
-.cart-controls .decrease-quantity:hover {
-    background-color: darkred;
-}
-
-/* Стили для футера */
-footer {
-    width: 100%; /* Занимает всю ширину экрана */
-    position: fixed; /* Закрепляем внизу */
-    bottom: 0; /* Прижимаем к низу страницы */
-    left: 0;
-    text-align: center; /* Центрируем содержимое */
-}
-
-footer img {
-    width: 100%; /* Растягиваем изображение на всю ширину */
-    height: auto; /* Сохраняем пропорции */
-    display: block; /* Убираем лишние отступы */
-    max-block-size: 160px;
+.slider-controls button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
