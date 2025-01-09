@@ -1,247 +1,176 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>MotoCREW.org/Главная</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoCREW.org/Новый год 2025</title>
     <link rel="stylesheet" type="text/css" href="../../../static/css/styles_index.css">
-</head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .slider-section {
+            margin: 20px auto;
+            max-width: 80%;
+            position: relative;
+        }
+
+        .slider-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .slider-container {
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider-item {
+            flex: 0 0 33.33%;
+            text-align: center;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .slider-item .description {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .slider-item .hashtag {
+            color: #4CAF50;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .slider-controls button {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .slider-controls button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
 <body>
     <header>
-        <a href="{% url 'index' %}">
-            <img src="../../../static/img/home_logo.svg" alt="Логотип">
-        </a>
+        <h1>Новый год 2025</h1>
     </header>
 
-    <div class="content">
-        <h3>Список товаров</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Наименование</th>
-                    <th>Тип</th>
-                    <th>Цена</th>
-                    <th>Действие</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for p in products %}
-                    <tr id="product-{{ p.id }}">
-                        <td>{{ p.name }}</td>
-                        <td>{{ p.type }}</td>
-                        <td class="price" id="price-{{ p.id }}">{{ p.price }}</td>
-                        <td>
-                            <a href="javascript:void(0);" class="buy-button" data-product-id="{{ p.id }}" data-product-type="{{ p.type }}" onclick="addToCart(event, {{ p.id }}, {{ p.price }}, '{{ p.type }}')">
-                                <i class="fa fa-shopping-cart"></i> В корзину
-                            </a>
-                            <div class="cart-controls" id="controls-{{ p.id }}" style="display:none;">
-                                <input type="number" id="quantity-{{ p.id }}" value="1" min="1" class="quantity-input">
-                                <button class="change-quantity" onclick="changeQuantity({{ p.id }}, 'increase')">+</button>
-                                <button class="change-quantity" onclick="changeQuantity({{ p.id }}, 'decrease')">-</button>
-                                <span class="total-price" id="total-price-{{ p.id }}">{{ p.price }}</span>
-                                <button class="cancel-button" onclick="cancelAddition({{ p.id }}, '{{ p.type }}')">Отменить</button>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <div class="center-button">
-            <a href="javascript:void(0);" onclick="proceedToPurchase()">
-                <i class="fa fa-plus"></i> Перейти в корзину
-            </a>
+    <!-- Секция "Новый год" -->
+    <div class="slider-section">
+        <h2 class="slider-title">Новый год</h2>
+        <div class="slider-container" id="slider-new-year">
+            <div class="slider-item">
+                <img src="static/img/img_bank/snow_man.jpg" alt="Снеговик">
+                <div class="description">Снеговик в заснеженном лесу.</div>
+                <div class="hashtag">#зима</div>
+            </div>
+            <div class="slider-item">
+                <img src="static/img/img_bank/snow_man.jpg" alt="Новогодний декор">
+                <div class="description">Новогодние украшения на ёлке.</div>
+                <div class="hashtag">#праздник</div>
+            </div>
+            <div class="slider-item">
+                <img src="static/img/img_bank/snow_man.jpg" alt="Камин">
+                <div class="description">Тёплый вечер у камина.</div>
+                <div class="hashtag">#уют</div>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <button onclick="slide('slider-new-year', -1)">&larr;</button>
+            <button onclick="slide('slider-new-year', 1)">&rarr;</button>
         </div>
     </div>
 
-    <footer>
-        <img src="../../../static/img/footer_without_back.png" alt="Футер">
-    </footer>
+    <!-- Секция "Лето" -->
+    <div class="slider-section">
+        <h2 class="slider-title">Лето</h2>
+        <div class="slider-container" id="slider-summer">
+            <div class="slider-item">
+                <img src="static/img/img_bank/snow_man.jpg" alt="Пляж">
+                <div class="description">Закат на пляже.</div>
+                <div class="hashtag">#пляж</div>
+            </div>
+            <div class="slider-item">
+                <img src="static/img/img_bank/snow_man.jpg" alt="Мороженое">
+                <div class="description">Освежающее мороженое в жаркий день.</div>
+                <div class="hashtag">#лето</div>
+            </div>
+            <div class="slider-item">
+                <img src="static/img/img_bank/snow_man.jpg" alt="Горы">
+                <div class="description">Прогулка по горным тропам.</div>
+                <div class="hashtag">#путешествие</div>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <button onclick="slide('slider-summer', -1)">&larr;</button>
+            <button onclick="slide('slider-summer', 1)">&rarr;</button>
+        </div>
+    </div>
+
+    <!-- Секция "Города" -->
+    <div class="slider-section">
+        <h2 class="slider-title">Города</h2>
+        <div class="slider-container" id="slider-cities">
+            <div class="slider-item">
+                <img src="/static/img/img_bank/snow_man.jpg" alt="Ночной город">
+                <div class="description">Огни ночного города.</div>
+                <div class="hashtag">#ночь</div>
+            </div>
+            <div class="slider-item">
+                <img src="/static/img/img_bank/snow_man.jpg" alt="Исторический центр">
+                <div class="description">Узкие улочки старого города.</div>
+                <div class="hashtag">#история</div>
+            </div>
+            <div class="slider-item">
+                <img src="/static/img/img_bank/snow_man.jpg" alt="Мегаполис">
+                <div class="description">Современный мегаполис с небоскрёбами.</div>
+                <div class="hashtag">#город</div>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <button onclick="slide('slider-cities', -1)">&larr;</button>
+            <button onclick="slide('slider-cities', 1)">&rarr;</button>
+        </div>
+    </div>
 
     <script>
-        let cart = {}; // Содержит товары в корзине: { productId: { type, price, quantity } }
-        let typesInCart = []; // Уникальные типы товаров в корзине
-        let discountApplied = false; // Флаг применения скидки
-        let discountedProductId = null; // ID товара, на который применена скидка
-    
-        function addToCart(event, productId, price, type) {
-            const button = event.target.closest('a');
-            const controls = document.getElementById('controls-' + productId);
-            const quantityInput = document.getElementById('quantity-' + productId);
-            const totalPriceElement = document.getElementById('total-price-' + productId);
-    
-            // Отображаем элементы управления количеством
-            controls.style.display = 'inline-block';
-            button.style.display = 'none';
-    
-            // Сбрасываем количество к 1 при повторном добавлении
-            quantityInput.value = 1;
-    
-            // Добавляем товар в корзину
-            const quantity = parseInt(quantityInput.value);
-            cart[productId] = { type, price, quantity };
-            totalPriceElement.innerText = (price * quantity).toFixed(2);
-    
-            // Обновляем список категорий в корзине
-            if (!typesInCart.includes(type)) {
-                typesInCart.push(type);
-            }
-    
-            applyDiscountIfNeeded();
+        function slide(sliderId, direction) {
+            const container = document.getElementById(sliderId);
+            const items = container.children;
+            container.appendChild(items[0]); // Смещаем первый элемент в конец
         }
-    
-        function cancelAddition(productId, type) {
-            const controls = document.getElementById('controls-' + productId);
-            const button = document.querySelector(`[data-product-id="${productId}"]`);
-            const totalPriceElement = document.getElementById('total-price-' + productId);
-            const quantityInput = document.getElementById('quantity-' + productId);
-    
-            // Убираем товар из корзины
-            delete cart[productId];
-            totalPriceElement.innerText = "0.00";
-    
-            // Сбрасываем количество товара к 1
-            quantityInput.value = 1;
-    
-            // Скрываем элементы управления количеством и показываем кнопку "Купить"
-            controls.style.display = 'none';
-            button.style.display = 'inline-block';
-    
-            // Убираем тип из списка типов, если это последний товар этого типа
-            if (!Object.values(cart).some(item => item.type === type)) {
-                typesInCart = typesInCart.filter(t => t !== type);
-            }
-    
-            // Если скидка применялась к этому товару — отменяем её
-            if (discountedProductId === productId) {
-                discountApplied = false;
-                discountedProductId = null;
-            }
-    
-            // Пересчитываем скидку, если нужно
-            applyDiscountIfNeeded();
-        }
-    
-        function changeQuantity(productId, action) {
-            const quantityInput = document.getElementById('quantity-' + productId);
-            const totalPriceElement = document.getElementById('total-price-' + productId);
-    
-            let quantity = parseInt(quantityInput.value);
-            if (action === 'increase') {
-                quantity++;
-            } else if (action === 'decrease' && quantity > 1) {
-                quantity--;
-            }
-    
-            quantityInput.value = quantity;
-            cart[productId].quantity = quantity;
-            totalPriceElement.innerText = (cart[productId].price * quantity).toFixed(2);
-    
-            applyDiscountIfNeeded();
-        }
-
-        async function applyDiscount(cart) {
-        // Получаем список ID товаров из корзины
-            const cartIds = cart.map(item => item.id);
-        
-            // Делаем POST-запрос
-            try {
-                const response = await fetch('http://example.com/calculate_discount/', { // Замените на ваш URL
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRFToken': getCookie('csrftoken')  // Если нужно для Django
-                    },
-                    body: new URLSearchParams({
-                        'cart': JSON.stringify(cartIds)  // Отправляем список ID
-                    })
-                });
-        
-                const data = await response.json();
-        
-                if (response.ok) {
-                    console.log('Итоговая сумма:', data.total_price);
-                    console.log('Цены с учетом скидки:', data.discounted_prices);
-                } else {
-                    console.error('Ошибка:', data.error);
-                }
-            } catch (error) {
-                console.error('Ошибка при отправке запроса:', error);
-            }
-        }
-    
-        function applyDiscountIfNeeded() {
-            // Убираем текущую скидку, если есть
-            if (discountApplied && discountedProductId) {
-                const totalPriceElement = document.getElementById('total-price-' + discountedProductId);
-                const originalPrice = cart[discountedProductId].price / 0.6;
-                totalPriceElement.innerText = (originalPrice * cart[discountedProductId].quantity).toFixed(2);
-                totalPriceElement.style.color = ''; // Убираем зелёный цвет
-                cart[discountedProductId].price = originalPrice;
-            }
-    
-            // Проверяем, есть ли хотя бы два разных типа товаров
-            if (typesInCart.length >= 2) {
-                // Применяем скидку к третьему товару
-                const eligibleProductIds = Object.keys(cart).filter(id => id !== discountedProductId);
-                if (eligibleProductIds.length >= 3) {
-                    const productIdToDiscount = eligibleProductIds[2]; // Третий товар
-                    const totalPriceElement = document.getElementById('total-price-' + productIdToDiscount);
-                    const discountedPrice = applyDiscount(cart);
-    
-                    totalPriceElement.innerText = (discountedPrice * cart[productIdToDiscount].quantity).toFixed(2);
-                    totalPriceElement.style.color = '#4CAF50'; // Зелёный цвет для скидки
-                    cart[productIdToDiscount].price = discountedPrice;
-    
-                    discountedProductId = productIdToDiscount;
-                    discountApplied = true;
-                }
-            } else {
-                discountApplied = false;
-                discountedProductId = null;
-            }
-        }
-    
-        function calculateTotalAmount() {
-            let total = 0;
-            for (let productId in cart) {
-                total += cart[productId].price * cart[productId].quantity;
-            }
-            return total.toFixed(2);
-        }
-    
-        function proceedToPurchase() {
-            const totalAmount = calculateTotalAmount();
-            if (totalAmount > 0) {
-                localStorage.setItem('totalAmount', totalAmount);
-                localStorage.setItem('cart', JSON.stringify(cart));
-                window.location.href = '{% url "buy" product_id=1 %}';
-            } else {
-                // Создаем кастомное сообщение с красным фоном и восклицательным знаком
-                const alertDiv = document.createElement('div');
-                alertDiv.textContent = '! Вы не добавили товары в корзину !';
-                alertDiv.style.position = 'fixed';
-                alertDiv.style.top = '80px';
-                alertDiv.style.left = '50%';
-                alertDiv.style.transform = 'translateX(-50%)';
-                alertDiv.style.backgroundColor = '#f44336'; // Красный фон
-                alertDiv.style.color = 'white'; // Белый текст
-                alertDiv.style.padding = '10px 20px';
-                alertDiv.style.fontSize = '18px';
-                alertDiv.style.borderRadius = '5px';
-                alertDiv.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-                alertDiv.style.zIndex = '9999';
-    
-                // Добавляем сообщение на страницу
-                document.body.appendChild(alertDiv);
-    
-                // Через 3 секунды скрываем сообщение
-                setTimeout(() => {
-                    alertDiv.style.display = 'none';
-                }, 3000);
-            }
-        }
-    </script> 
-    
+    </script>
 </body>
 </html>
