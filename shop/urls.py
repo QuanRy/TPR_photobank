@@ -3,7 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('buy/<int:product_id>/', views.PurchaseCreate.as_view(), name='buy'),
-    path('calculate_discount/', views.calculate_discount, name='calculate_discount'),
+    path('', views.photo_list, name='home'),  # Главная страница (будет обрабатывать путь '/')
+    path('photos/', views.photo_list, name='photo_list'),  # Страница с фотографиями
 ]

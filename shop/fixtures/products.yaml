@@ -1,24 +1,83 @@
 # Для инициализации БД, при первом запуске проги
-# сама команда - python manage.py loaddata products.yaml
+# сама команда - python manage.py loaddata shop/fixtures/products.yaml
 
-- model: shop.product
+-- model: shop.photo
   pk: 1
   fields:
-    name: Стол
-    price: 2000
-    type: 1
-- model: shop.product
+    image_path: C:/Users/User/Programs/_STUDY/TPR_photobank/static/img/photo_bank/winter/winter_river.jpg
+    description: Зимняя река в лесу.
+    hashtags: "#зима"
+    price: 100.00
+    category: winter
+
+- model: shop.photo
   pk: 2
   fields:
-    name: Стул
-    price: 1000
-- model: shop.product
+    image_path: C:/Users/User/Programs/_STUDY/TPR_photobank/static/img/photo_bank/summer/summer_beach.jpg
+    description: Отдых на пляже.
+    hashtags: "#пляж"
+    price: 90.00
+    category: summer
+
+- model: shop.photo
   pk: 3
   fields:
-    name: Табурет
-    price: 500
-- model: shop.product
+    image_path: C:/Users/User/Programs/_STUDY/TPR_photobank/static/img/photo_bank/city/city_los_ang.jpg
+    description: Лос-Анджелес на рассвете.
+    hashtags: "#город"
+    price: 200.00
+    category: city
+
+- model: shop.photo
   pk: 4
   fields:
-    name: Диван
-    price: 10000
+    image_path: C:/Users/User/Programs/_STUDY/TPR_photobank/static/img/photo_bank/winter/winter_city.jpg
+    description: Зимний рождественский городок.
+    hashtags: "#праздник"
+    price: 120.00
+    category: winter
+
+- model: shop.photo
+  pk: 5
+  fields:
+    image_path: C:/Users/User/Programs/_STUDY/TPR_photobank/static/img/photo_bank/summer/summer_grass_field.jpg
+    description: Летний закат над полем травы.
+    hashtags: "#лето"
+    price: 110.00
+    category: summer
+
+- model: shop.photo
+  pk: 6
+  fields:
+    image_path: C:/Users/User/Programs/_STUDY/TPR_photobank/static/img/photo_bank/city/city_moscow.jpg
+    description: Ночная жизнь великой российской столицы.
+    hashtags: "#ночь"
+    price: 180.00
+    category: city
+
+- model: shop.photo
+  pk: 7
+  fields:
+    image_path: C:/Users/User/Programs/_STUDY/TPR_photobank/static/img/photo_bank/winter/winter_christmas_tree.jpg
+    description: Тёплый вечер у камина в рождество.
+    hashtags: "#уют"
+    price: 150.00
+    category: winter
+
+- model: shop.photo
+  pk: 8
+  fields:
+    image_path: C:/Users/User/Programs/_STUDY/TPR_photobank/static/img/photo_bank/summer/summer_mountains_flowers.jpg
+    description: Прогулка по горным тропам с выдающимися цветами.
+    hashtags: "#путешествие"
+    price: 130.00
+    category: summer
+
+- model: shop.photo
+  pk: 9
+  fields:
+    image_path: C:/Users/User/Programs/_STUDY/TPR_photobank/static/img/photo_bank/city/city_vorkuta.jpg
+    description: Захолустный зимний город в России.
+    hashtags: "#город"
+    price: 150.00
+    category: city

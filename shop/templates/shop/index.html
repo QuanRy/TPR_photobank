@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MotoCREW.org/Новый год 2025</title>
+    <title>Photobank</title>
     <link rel="stylesheet" type="text/css" href="../../../static/css/styles_index.css">
 </head>
 
@@ -21,21 +21,13 @@
     <div class="slider-section">
         <h2 class="slider-title">Новый год</h2>
         <div class="slider-container" id="slider-new-year">
-            <div class="slider-item">
-                <img src="../../../static/img/photo_bank/winter/winter_river.jpg" alt="Зимняя речка">
-                <div class="description">Зимняя река в лесу.</div>
-                <div class="hashtag">#зима</div>
-            </div>
-            <div class="slider-item">
-                <img src="../../../static/img/photo_bank/winter/winter_city.jpg" alt="Рождественский город">
-                <div class="description">Зимний рождественский городок.</div>
-                <div class="hashtag">#праздник</div>
-            </div>
-            <div class="slider-item">
-                <img src="../../../static/img/photo_bank/winter/winter_christmas_tree.jpg" alt="Рождественский камин">
-                <div class="description">Тёплый вечер у камина в рождество.</div>
-                <div class="hashtag">#уют</div>
-            </div>
+            {% for photo in photos %}
+                <div class="slider-item">
+                    <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
+                    <div class="description">{{ photo.description }}</div>
+                    <div class="hashtag">{{ photo.hashtags }}</div>
+                </div>
+            {% endfor %}
         </div>
         <div class="slider-controls">
             <button onclick="slide('slider-new-year', -1)">&larr;</button>
@@ -47,21 +39,15 @@
     <div class="slider-section">
         <h2 class="slider-title">Лето</h2>
         <div class="slider-container" id="slider-summer">
-            <div class="slider-item">
-                <img src="../../../static/img/photo_bank/summer/summer_beach.jpg" alt="Пляж">
-                <div class="description">Отдых на пляже.</div>
-                <div class="hashtag">#пляж</div>
-            </div>
-            <div class="slider-item">
-                <img src="../../../static/img/photo_bank/summer/summer_grass_field.jpg" alt="Летнее поле">
-                <div class="description">Летний закат над полем травы.</div>
-                <div class="hashtag">#лето</div>
-            </div>
-            <div class="slider-item">
-                <img src="../../../static/img/photo_bank/summer/summer_mountains_flowers.jpg" alt="Горы с цветами">
-                <div class="description">Прогулка по горным тропам с выдающимися цветами.</div>
-                <div class="hashtag">#путешествие</div>
-            </div>
+            {% for photo in photos %}
+                {% if photo.category == 'summer' %}
+                    <div class="slider-item">
+                        <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
+                        <div class="description">{{ photo.description }}</div>
+                        <div class="hashtag">{{ photo.hashtags }}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
         <div class="slider-controls">
             <button onclick="slide('slider-summer', -1)">&larr;</button>
@@ -73,21 +59,15 @@
     <div class="slider-section">
         <h2 class="slider-title">Города</h2>
         <div class="slider-container" id="slider-cities">
-            <div class="slider-item">
-                <img src="../../../static/img/photo_bank/city/city_los_ang.jpg" alt="Лос-Анджелес">
-                <div class="description">Лос-Анджелес на рассвете.</div>
-                <div class="hashtag">#город</div>
-            </div>
-            <div class="slider-item">
-                <img src="../../../static/img/photo_bank/city/city_moscow.jpg" alt="Вечерняя Москва">
-                <div class="description">Ночная жизнь великой российской столицы.</div>
-                <div class="hashtag">#ночь</div>
-            </div>
-            <div class="slider-item">
-                <img src="../../../static/img/photo_bank/city/city_vorkuta.jpg" alt="Зимняя Воркута">
-                <div class="description">Захолустный зимний город в России.</div>
-                <div class="hashtag">#город</div>
-            </div>
+            {% for photo in photos %}
+                {% if photo.category == 'city' %}
+                    <div class="slider-item">
+                        <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
+                        <div class="description">{{ photo.description }}</div>
+                        <div class="hashtag">{{ photo.hashtags }}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
         <div class="slider-controls">
             <button onclick="slide('slider-cities', -1)">&larr;</button>
