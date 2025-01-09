@@ -143,12 +143,24 @@
         }
 
 
+        // Функция для поиска по хэштегу из поля поиска
         function searchHashtag() {
             const hashtag = document.getElementById('search-input').value;
             if (hashtag) {
-                window.location.href = `/search/?hashtag=${hashtag}`;  // Направляем на страницу поиска с хэштегом
+                window.location.href = `/search/?hashtag=${encodeURIComponent(hashtag)}`;  // Кодируем хэштег перед передачей в URL
             }
         }
+
+        // Добавим обработку кликов по хэштегам
+        document.addEventListener("DOMContentLoaded", function () {
+            const hashtags = document.querySelectorAll('.hashtag');
+            hashtags.forEach(function (hashtag) {
+                hashtag.addEventListener('click', function () {
+                    const hashtagText = this.innerText;  // Получаем текст хэштега
+                    window.location.href = `/search/?hashtag=${encodeURIComponent(hashtagText)}`;  // Кодируем хэштег перед передачей в URL
+                });
+            });
+        });
         
     </script>
 </body>
