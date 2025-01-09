@@ -35,6 +35,31 @@ h1, h2, h3, p {
 }
 
 
+/* ---------------------- Фотоаппараты слева и справа от названия ---------------------- */
+.title-container {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    gap: 10px;
+    transform: translateX(50px);
+}
+
+/* Стили для логотипов */
+.header-logo {
+    width: 50px; 
+    height: auto;
+    transform: translateX(5px);
+    transform: translateY(8px); 
+}
+
+/* Стили для текста */
+.header-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+
 /* ---------------------- Хедер ---------------------- */
 header {
     background-color: #f4f4f4;
