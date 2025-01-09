@@ -30,7 +30,10 @@
                             <span class="hashtag">{{ hashtag }}</span>
                         {% endfor %}
                     </div>
-                    <div class="price">{{ photo.price }} $</div> <!-- Показываем цену -->
+                    <div class="price-container">
+                        <div class="price">{{ photo.price }} $</div>
+                        <button class="buy-button">Купить</button>
+                    </div>
                 </div>
             {% endfor %}
         </div>
@@ -53,7 +56,10 @@
                             <span class="hashtag">{{ hashtag }}</span>
                         {% endfor %}
                     </div>
-                    <div class="price">{{ photo.price }} $</div> <!-- Показываем цену -->
+                    <div class="price-container">
+                        <div class="price">{{ photo.price }} $</div>
+                        <button class="buy-button">Купить</button>
+                    </div>
                 </div>
             {% endfor %}
         </div>
@@ -76,7 +82,10 @@
                             <span class="hashtag">{{ hashtag }}</span>
                         {% endfor %}
                     </div>
-                    <div class="price">{{ photo.price }} $</div> <!-- Показываем цену -->
+                    <div class="price-container">
+                        <div class="price">{{ photo.price }} $</div>
+                        <button class="buy-button">Купить</button>
+                    </div>
                 </div>
             {% endfor %}
         </div>
@@ -126,6 +135,7 @@
             
             // Показать новый элемент
             items[newIndex].style.display = 'block';
+            slider.style.transform = `translateX(${offset}%)`;
         }
         
     </script>

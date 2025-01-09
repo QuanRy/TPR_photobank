@@ -61,7 +61,6 @@ header h1 {
 }
 
 /* ---------------------- Слайдер ---------------------- */
-/* Секция слайдера */
 .slider-section {
     margin: 20px auto;
     max-width: 80%;
@@ -78,20 +77,21 @@ header h1 {
     margin-bottom: 10px;
 }
 
-/* Контейнер для слайдов */
 .slider-container {
     display: flex;
     overflow: hidden;
     position: relative;
+    transition: transform 0.5s ease;
 }
 
-/* Элементы слайдера */
 .slider-item {
+    position: relative;
     flex: 0 0 32.15%; 
     max-width: 32.33%; 
     text-align: center;
     padding: 10px;
     transition: transform 0.5s ease;
+    margin-bottom: 40px;
 }
 
 .slider-item img {
@@ -100,6 +100,11 @@ header h1 {
     border-radius: 8px;
     object-fit: cover; 
     transition: transform 0.3s ease;
+}
+
+.slider-item:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
 }
 
 .slider-item:hover img {
@@ -126,6 +131,62 @@ header h1 {
     font-size: 18px; 
     color: #3498db; 
     cursor: pointer; 
+}
+
+
+.price-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: -30px; 
+    left: 50%;
+    gap: 10px;
+    transform: translateX(-50%); 
+    opacity: 0; 
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+.buy-button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+    transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+    background-color: #45a049;
+}
+
+/* Показываем кнопку при наведении на карточку */
+.slider-item:hover .price-container {
+    opacity: 1; /* Показываем */
+}
+
+/* Показываем кнопку при наведении */
+.slider-item:hover .buy-button {
+    transform: translateX(10px);
+}
+
+/* Сдвигаем цену немного влево */
+.slider-item:hover .price {
+    margin-left: 10px;
 }
 
 /* Кнопки управления слайдером */
