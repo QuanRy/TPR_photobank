@@ -13,5 +13,7 @@ class Photo(models.Model):
         db_table = 'shop_photo'
 
     def get_hashtags_list(self):
-        """Возвращает список хэштегов"""
-        return [tag.strip() for tag in self.hashtags.split(",")]
+        """Разделяет хэштеги на список, убирая пробелы"""
+        if self.hashtags:
+            return [tag.strip() for tag in self.hashtags.split(",") if tag.strip()]
+        return []
