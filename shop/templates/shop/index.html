@@ -21,7 +21,7 @@
     <div class="slider-section">
         <h2 class="slider-title">Новый год</h2>
         <div class="slider-container" id="slider-new-year">
-            {% for photo in photos %}
+            {% for photo in new_year_photos  %}
                 <div class="slider-item">
                     <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
                     <div class="description">{{ photo.description }}</div>
@@ -47,7 +47,7 @@
     <div class="slider-section">
         <h2 class="slider-title">Лето</h2>
         <div class="slider-container" id="slider-summer">
-            {% for photo in photos %}
+            {% for photo in summer_photos  %}
                 <div class="slider-item">
                     <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
                     <div class="description">{{ photo.description }}</div>
@@ -73,7 +73,7 @@
     <div class="slider-section">
         <h2 class="slider-title">Города</h2>
         <div class="slider-container" id="slider-cities">
-            {% for photo in photos %}
+            {% for photo in cities_photos  %}
                 <div class="slider-item">
                     <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
                     <div class="description">{{ photo.description }}</div>
