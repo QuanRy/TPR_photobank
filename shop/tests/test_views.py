@@ -1,47 +1,58 @@
-import pytest
-from django.urls import reverse
+from django.test import TestCase, Client
 from shop.models import Photo
+from django.urls import reverse
 
-@pytest.mark.django_db
-def test_photo_list_view(client):
-    """Тестируем отображение списка фотографий"""
-    Photo.objects.create(
-        image_path='static/img/photo_bank/summer/summer_beach.jpg',
-        description='Отдых на пляже.',
-        hashtags='#пляж, #лето, #море, #отдых',
-        price=90.00
-    )
-    url = reverse('photo_list')
-    response = client.get(url)
-    
-    assert response.status_code == 200
-    assert 'new_year_photos' in response.context
-    assert 'summer_photos' in response.context
-    assert 'cities_photos' in response.context
 
-@pytest.mark.django_db
-def test_search_photos_view(client):
-    """Тестируем поиск фотографий по хэштегу"""
-    photo = Photo.objects.create(
-        image_path='static/img/photo_bank/summer/summer_beach.jpg',
-        description='Отдых на пляже.',
-        hashtags='#пляж, #лето, #море, #отдых',
-        price=90.00
-    )
-    url = reverse('search_photos') + '?hashtag=%23лето'
-    response = client.get(url)
-    
-    assert response.status_code == 200
-    assert 'photos' in response.context
-    assert len(response.context['photos']) == 1
-    assert response.context['photos'][0] == photo
+class PhotoViewTests(TestCase):
+    def setUp(self):
+        # Создаем несколько фотографий для тестов
+        self.photo1 = Photo.objects.create(
+            image_path='path/to/photo1.jpg',
+            description='New Year Celebration',
+            hashtags='#праздник, #новыйгод',
+            price=500.00
+        )
+        self.photo2 = Photo.objects.create(
+            image_path='path/to/photo2.jpg',
+            description='Summer Vacation',
+            hashtags='#лето',
+            price=300.00
+        )
+        self.photo3 = Photo.objects.create(
+            image_path='path/to/photo3.jpg',
+            description='City Landscape',
+            hashtags='#город',
+            price=150.00
+        )
+        self.client = Client()
 
-@pytest.mark.django_db
-def test_invalid_search_photos_view(client):
-    """Тестируем поиск с некорректным хэштегом"""
-    url = reverse('search_photos') + '?hashtag=%23несуществующий'
-    response = client.get(url)
-    
-    assert response.status_code == 200
-    assert 'photos' in response.context
-    assert len(response.context['photos']) == 0
+    def test_photo_list_view(self):
+        # Получаем главную страницу
+        response = self.client.get(reverse('photo_list'))
+
+        # Проверяем, что статус ответа - 200
+        self.assertEqual(response.status_code, 200)
+
+        # Проверяем, что фотографии для каждой категории отображаются
+        self.assertContains(response, 'New Year Celebration')
+        self.assertContains(response, 'Summer Vacation')
+        self.assertContains(response, 'City Landscape')
+
+    def test_search_photos_view(self):
+        # Тестируем поиск по хэштегу
+        response = self.client.get(reverse('search_photos'), {'hashtag': '#лето'})
+
+        # Проверяем, что статус ответа - 200
+        self.assertEqual(response.status_code, 200)
+
+        # Проверяем, что найдена только одна фотография с хэштегом '#лето'
+        self.assertContains(response, 'Summer Vacation')
+        self.assertNotContains(response, 'New Year Celebration')
+        self.assertNotContains(response, 'City Landscape')
+
+        # Тестируем поиск с пустым хэштегом
+        response_empty = self.client.get(reverse('search_photos'), {'hashtag': ''})
+
+        # Проверяем, что статус ответа - 200 и список фотографий пуст
+        self.assertEqual(response_empty.status_code, 200)
+        self.assertContains(response_empty, 'Фото не найдено')  # Или любой другой текст, если ничего не найдено

@@ -31,23 +31,29 @@
 
     <div class="slider-section">
         <h2 class="slider-title">Результаты поиска по хэштегу: {{ hashtag }}</h2>
-        <div class="slider-container" id="search-slider">
-            {% for photo in photos %}
-                <div class="slider-item">
-                    <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
-                    <div class="description">{{ photo.description }}</div>
-                    <div class="hashtags">
-                        {% for hashtag in photo.get_hashtags_list %}
-                            <span class="hashtag">{{ hashtag }}</span>
-                        {% endfor %}
+        
+        {% if photos %}
+            <div class="slider-container" id="search-slider">
+                {% for photo in photos %}
+                    <div class="slider-item">
+                        <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
+                        <div class="description">{{ photo.description }}</div>
+                        <div class="hashtags">
+                            {% for hashtag in photo.get_hashtags_list %}
+                                <span class="hashtag">{{ hashtag }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="price-container">
+                            <div class="price">{{ photo.price }} $</div>
+                            <button class="buy-button">Купить</button>
+                        </div>
                     </div>
-                    <div class="price-container">
-                        <div class="price">{{ photo.price }} $</div>
-                        <button class="buy-button">Купить</button>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Фото не найдено</p>  <!-- Выводим сообщение, если фотографий нет -->
+        {% endif %}
+
         <div class="slider-controls">
             <button onclick="slide('search-slider', -1)">&larr;</button>
             <button onclick="slide('search-slider', 1)">&rarr;</button>

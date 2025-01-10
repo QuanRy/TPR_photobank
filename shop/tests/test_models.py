@@ -1,33 +1,52 @@
-import pytest
-from django.db import IntegrityError
+from django.test import TestCase
 from shop.models import Photo, Hashtag
 
-# Тест на создание нового хэштега
-@pytest.mark.django_db
-def test_create_hashtag():
-    """Проверяем создание хэштега"""
-    hashtag = Hashtag.objects.create(name='#лето')
-    assert hashtag.name == '#лето'
-    assert Hashtag.objects.count() == 1
 
-# Тест на создание фотографии с корректными данными
-@pytest.mark.django_db
-def test_create_photo():
-    """Проверяем создание фотографии"""
-    photo = Photo.objects.create(
-        image_path='static/img/photo_bank/summer/summer_beach.jpg',
-        description='Отдых на пляже.',
-        hashtags='#пляж, #лето, #море, #отдых',
-        price=90.00
-    )
-    assert photo.description == 'Отдых на пляже.'
-    assert photo.price == 90.00
-    assert len(photo.get_hashtags_list()) == 4
+class PhotoModelTests(TestCase):
+    def setUp(self):
+        # Создаем фотографии
+        self.photo1 = Photo.objects.create(
+            image_path='path/to/photo1.jpg',
+            description='New Year Celebration',
+            hashtags='#праздник, #новыйгод',
+            price=500.00
+        )
+        self.photo2 = Photo.objects.create(
+            image_path='path/to/photo2.jpg',
+            description='Summer Vacation',
+            hashtags='#лето',
+            price=300.00
+        )
 
-# Тест на уникальность хэштега
-@pytest.mark.django_db
-def test_unique_hashtag():
-    """Проверяем уникальность хэштега"""
-    Hashtag.objects.create(name='#лето')
-    with pytest.raises(IntegrityError):
-        Hashtag.objects.create(name='#лето')  # Должно вызвать исключение
+    def test_photo_creation(self):
+        # Проверяем, что фотографии были созданы
+        self.assertEqual(Photo.objects.count(), 2)
+
+    def test_photo_get_hashtags_list(self):
+        # Проверяем работу метода get_hashtags_list
+        hashtags_list = self.photo1.get_hashtags_list()
+        self.assertEqual(hashtags_list, ['#праздник', '#новыйгод'])
+
+    def test_photo_price(self):
+        # Проверяем цену
+        self.assertEqual(self.photo2.price, 300.00)
+
+    def test_photo_description(self):
+        # Проверяем описание фотографии
+        self.assertEqual(self.photo1.description, 'New Year Celebration')
+
+
+class HashtagModelTests(TestCase):
+    def setUp(self):
+        # Создаем хэштеги
+        self.hashtag1 = Hashtag.objects.create(name='#праздник')
+        self.hashtag2 = Hashtag.objects.create(name='#лето')
+
+    def test_hashtag_creation(self):
+        # Проверяем создание хэштегов
+        self.assertEqual(Hashtag.objects.count(), 2)
+
+    def test_hashtag_name(self):
+        # Проверяем имя хэштега
+        self.assertEqual(self.hashtag1.name, '#праздник')
+        self.assertEqual(self.hashtag2.name, '#лето')

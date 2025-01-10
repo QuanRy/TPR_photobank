@@ -44,7 +44,8 @@ def search_photos(request):
 
     return render(request, 'shop/search_results.html', {
         'hashtag': hashtag,
-        'photos': photos
+        'photos': photos,
+        'no_results': not photos,
     })
 
 

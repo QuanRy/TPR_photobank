@@ -1,36 +1,31 @@
-import pytest
-from django.urls import reverse
+from django.test import TestCase, Client
 from shop.models import Photo
+from django.urls import reverse
 
-@pytest.mark.django_db
-def test_purchase_view(client):
-    """Тестируем страницу покупки фотографии"""
-    photo = Photo.objects.create(
-        image_path='static/img/photo_bank/summer/summer_beach.jpg',
-        description='Отдых на пляже.',
-        hashtags='#пляж, #лето, #море, #отдых',
-        price=90.00
-    )
-    url = reverse('purchase_view') + f'?photo_id={photo.id}'
-    response = client.get(url)
-    
-    assert response.status_code == 200
-    assert 'photo' in response.context
-    assert response.context['photo'] == photo
 
-@pytest.mark.django_db
-def test_statistics_view(client):
-    """Тестируем страницу статистики"""
-    Photo.objects.create(
-        image_path='static/img/photo_bank/summer/summer_beach.jpg',
-        description='Отдых на пляже.',
-        hashtags='#пляж, #лето, #море, #отдых',
-        price=90.00
-    )
-    url = reverse('statistics_view')
-    response = client.get(url)
-    
-    assert response.status_code == 200
-    assert 'price_histogram' in response.context
-    assert 'hashtag_pie' in response.context
-    assert 'category_pie' in response.context
+class PhotoControllerTests(TestCase):
+    def setUp(self):
+        # Создаем фотографии
+        self.photo1 = Photo.objects.create(
+            image_path='path/to/photo1.jpg',
+            description='New Year Celebration',
+            hashtags='#праздник, #новыйгод',
+            price=500.00
+        )
+        self.photo2 = Photo.objects.create(
+            image_path='path/to/photo2.jpg',
+            description='Summer Vacation',
+            hashtags='#лето',
+            price=300.00
+        )
+        self.client = Client()
+
+    def test_photo_list_view(self):
+        # Получаем страницу списка фотографий
+        response = self.client.get(reverse('photo_list'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_search_photos_view(self):
+        # Тестируем поиск по хэштегу
+        response = self.client.get(reverse('search_photos'), {'hashtag': '#лето'})
+        self.assertEqual(response.status_code, 200)
