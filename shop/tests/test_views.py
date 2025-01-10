@@ -26,26 +26,26 @@ class PhotoViewTests(TestCase):
         )
         self.client = Client()
 
-    def test_photo_list_view(self):
-        # Получаем главную страницу
+    def test_1_photo_list_view(self):
+        """
+        Тестирует страницу списка фотографий.
+        Проверяет, что фотографии отображаются на странице с кодом ответа 200.
+        """
         response = self.client.get(reverse('photo_list'))
 
-        # Проверяем, что статус ответа - 200
         self.assertEqual(response.status_code, 200)
-
-        # Проверяем, что фотографии для каждой категории отображаются
         self.assertContains(response, 'New Year Celebration')
         self.assertContains(response, 'Summer Vacation')
         self.assertContains(response, 'City Landscape')
 
-    def test_search_photos_view(self):
-        # Тестируем поиск по хэштегу
+    def test_2_search_photos_view(self):
+        """
+        Тестирует поиск по хэштегу.
+        Проверяет, что поиск по хэштегу #лето возвращает только фотографии с этим хэштегом.
+        """
         response = self.client.get(reverse('search_photos'), {'hashtag': '#лето'})
 
-        # Проверяем, что статус ответа - 200
         self.assertEqual(response.status_code, 200)
-
-        # Проверяем, что найдена только одна фотография с хэштегом '#лето'
         self.assertContains(response, 'Summer Vacation')
         self.assertNotContains(response, 'New Year Celebration')
         self.assertNotContains(response, 'City Landscape')
@@ -53,6 +53,5 @@ class PhotoViewTests(TestCase):
         # Тестируем поиск с пустым хэштегом
         response_empty = self.client.get(reverse('search_photos'), {'hashtag': ''})
 
-        # Проверяем, что статус ответа - 200 и список фотографий пуст
         self.assertEqual(response_empty.status_code, 200)
-        self.assertContains(response_empty, 'Фото не найдено')  # Или любой другой текст, если ничего не найдено
+        self.assertContains(response_empty, 'Фото не найдено')
