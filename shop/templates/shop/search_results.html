@@ -5,12 +5,12 @@
     <title>Photobank</title>
     <link rel="stylesheet" type="text/css" href="../../../static/css/styles_search_results.css">
     <link rel="icon" href="../../../static/img/logo_header_site_photo.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Подключение Chart.js -->
 </head>
-    
+
 <body>
     <header>
         <div class="header-container">
-
             <a href="{% url 'index' %}" class="logo-container">
                 <img src="../../../static/img/home_logo.svg" alt="Home Logo" class="logo">
             </a>
@@ -25,7 +25,6 @@
                 <input type="text" placeholder="Поиск..." class="search-input" id="search-input">
                 <button class="search-button" onclick="searchHashtag()">Поиск</button>
             </div>
-
         </div>
     </header>
 
@@ -51,13 +50,19 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p>Фото не найдено</p>  <!-- Выводим сообщение, если фотографий нет -->
+            <p>Фото не найдено</p>
         {% endif %}
 
         <div class="slider-controls">
             <button onclick="slide('search-slider', -1)">&larr;</button>
             <button onclick="slide('search-slider', 1)">&rarr;</button>
         </div>
+    </div>
+
+    <!-- Добавляем блок для графика -->
+    <div class="chart-section">
+        <h2>Частота хэштегов</h2>
+        <canvas id="hashtagChart"></canvas>
     </div>
 
     <footer>
@@ -75,13 +80,13 @@
         </div>
     </footer>
 
-
     <script>
+        // Функция для переключения слайдов
         function slide(sliderId, direction) {
             const slider = document.getElementById(sliderId);
             const items = slider.getElementsByClassName('slider-item');
             let currentIndex = 0;
-            
+
             // Найти текущий индекс
             for (let i = 0; i < items.length; i++) {
                 if (items[i].style.display !== 'none') {
@@ -89,10 +94,10 @@
                     break;
                 }
             }
-        
+
             // Скрыть текущий элемент
             items[currentIndex].style.display = 'none';
-            
+
             // Вычислить новый индекс
             let newIndex = currentIndex + direction;
             if (newIndex < 0) {
@@ -100,32 +105,54 @@
             } else if (newIndex >= items.length) {
                 newIndex = 0; // если справа, то идем на начало
             }
+
             // Показать новый элемент
             items[newIndex].style.display = 'block';
-            slider.style.transition = 'transform 0.5s ease';
-            slider.style.transform = `translateX(${offset}%)`;
         }
 
-
-        // Функция для поиска по хэштегу из поля поиска
+        // Функция для поиска хэштегов
         function searchHashtag() {
             const hashtag = document.getElementById('search-input').value;
             if (hashtag) {
-                window.location.href = `/search/?hashtag=${encodeURIComponent(hashtag)}`;  // Кодируем хэштег перед передачей в URL
+                window.location.href = `/search/?hashtag=${encodeURIComponent(hashtag)}`;
             }
         }
 
-        // Добавим обработку кликов по хэштегам
+        // Данные для графика из контекста шаблона
+        const hashtagData = JSON.parse('{{ hashtag_data|safe }}');  // Убираем escapejs
+
+        // Рисуем график после загрузки страницы
         document.addEventListener("DOMContentLoaded", function () {
-            const hashtags = document.querySelectorAll('.hashtag');
-            hashtags.forEach(function (hashtag) {
-                hashtag.addEventListener('click', function () {
-                    const hashtagText = this.innerText;  // Получаем текст хэштега
-                    window.location.href = `/search/?hashtag=${encodeURIComponent(hashtagText)}`;  // Кодируем хэштег перед передачей в URL
+            if (hashtagData && hashtagData.length > 0) {
+                const labels = hashtagData.map(data => data.hashtag);
+                const counts = hashtagData.map(data => data.count);
+
+                // Рисуем график
+                const ctx = document.getElementById('hashtagChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Частота хэштегов',
+                            data: counts,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
                 });
-            });
+            } else {
+                console.error("Нет данных для построения графика.");
+            }
         });
-        
     </script>
 </body>
 </html>

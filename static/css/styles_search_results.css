@@ -108,6 +108,17 @@ header h1 {
     background-color: #45a049;
 }
 
+.chart-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#hashtagChart {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
 /* ---------------------- Слайдер ---------------------- */
 .slider-section {
     margin: 20px auto;

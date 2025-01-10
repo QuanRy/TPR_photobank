@@ -7,6 +7,9 @@ from .models import Photo, Hashtag
 from io import BytesIO
 import pandas as pd
 import matplotlib.pyplot as plt
+from collections import Counter
+import json
+
 
 
 
@@ -32,20 +35,40 @@ def photo_list(request):
     })
 
 
-
 def search_photos(request):
-    hashtag = request.GET.get('hashtag', '')  # Получаем хэштег из параметров запроса
+    hashtag = request.GET.get('hashtag', '')  # Получаем хэштег из запроса
 
+    # Если указан хэштег, фильтруем фотографии
     if hashtag:
-        # Фильтруем фотографии по хэштегу, сравнивая с хэш-тегами каждой фотографии
         photos = Photo.objects.filter(hashtags__icontains=hashtag)
     else:
-        photos = []  # Если хэштег не указан, показываем пустой список
+        photos = Photo.objects.all()  # Если нет, берём все фото
 
+    # Определяем категории хэштегов
+    categories = {
+        "Новый год": ['#праздник', '#новыйгод', '#рождество'],
+        "Лето": ['#лето'],
+        "Город": ['#город']
+    }
+
+    # Подсчитываем хэштеги
+    hashtag_counter = Counter()
+    for photo in photos:
+        hashtags = photo.get_hashtags_list()  # Получаем список хэштегов для фото
+        for tag in hashtags:
+            for category, tags in categories.items():
+                if tag in tags:
+                    hashtag_counter[category] += 1
+
+    # Преобразуем данные в формат для графика
+    hashtag_data = [{"hashtag": category, "count": count} for category, count in hashtag_counter.items()]
+
+    # Передаем данные в шаблон как строку JSON
     return render(request, 'shop/search_results.html', {
         'hashtag': hashtag,
         'photos': photos,
-        'no_results': not photos,
+        'hashtag_data': json.dumps(hashtag_data),  # Преобразование в JSON
+        'no_results': not photos
     })
 
 
@@ -69,11 +92,6 @@ def purchase_view(request):
 
 
 def statistics_view(request):
-    # Новогодние, летние и городские теги
-    new_year_tags = ['#праздник', '#новыйгод', '#рождество']
-    summer_tags = ['#лето']
-    cities_tags = ['#город']
-
     # Извлекаем все фотографии
     photos = Photo.objects.all()
 
@@ -84,34 +102,41 @@ def statistics_view(request):
     }
     df = pd.DataFrame(data)
 
-    # Строим гистограмму по ценам
+    # --- Гистограмма цен ---
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.hist(df['price'], bins=20, color='blue', alpha=0.7)
     ax.set_title('Гистограмма цен на фотографии')
     ax.set_xlabel('Цена')
     ax.set_ylabel('Количество')
 
-    # Сохраняем график в изображение
     img_stream = BytesIO()
     plt.savefig(img_stream, format='png')
     img_stream.seek(0)
+    plt.close(fig)  # Закрываем фигуру после сохранения
 
-    # Строим pie диаграмму для хэштегов
+    # --- Гистограмма хэштегов ---
     hashtag_counts = {}
     for hashtags in df['hashtags']:
         for tag in hashtags:
             hashtag_counts[tag] = hashtag_counts.get(tag, 0) + 1
-    hashtag_df = pd.DataFrame(list(hashtag_counts.items()), columns=['Hashtag', 'Count'])
 
-    fig2, ax2 = plt.subplots(figsize=(8, 8))
-    ax2.pie(hashtag_df['Count'], labels=hashtag_df['Hashtag'], autopct='%1.1f%%', startangle=90)
-    ax2.set_title('Распределение хэштегов по фотографиям')
+    fig2, ax2 = plt.subplots(figsize=(10, 6))
+    ax2.bar(hashtag_counts.keys(), hashtag_counts.values(), color='green', alpha=0.7)
+    ax2.set_title('Распределение хэштегов')
+    ax2.set_xlabel('Хэштеги')
+    ax2.set_ylabel('Количество')
+    ax2.tick_params(axis='x', rotation=45)  # Поворачиваем метки оси X для читабельности
 
     hashtag_img_stream = BytesIO()
     plt.savefig(hashtag_img_stream, format='png')
     hashtag_img_stream.seek(0)
+    plt.close(fig2)
 
-    # Строим диаграмму по категориям (новогодние, летние, городские фотографии)
+    # --- Диаграмма по категориям ---
+    new_year_tags = ['#праздник', '#новыйгод', '#рождество']
+    summer_tags = ['#лето']
+    cities_tags = ['#город']
+
     category_counts = {
         'New Year': len([photo for photo in photos if any(tag in photo.get_hashtags_list() for tag in new_year_tags)]),
         'Summer': len([photo for photo in photos if any(tag in photo.get_hashtags_list() for tag in summer_tags)]),
@@ -125,10 +150,11 @@ def statistics_view(request):
     category_img_stream = BytesIO()
     plt.savefig(category_img_stream, format='png')
     category_img_stream.seek(0)
+    plt.close(fig3)
 
-    # Передаем все изображения и графики в шаблон
+    # Передаем изображения в шаблон
     return render(request, 'shop/statistics.html', {
         'price_histogram': img_stream,
-        'hashtag_pie': hashtag_img_stream,
+        'hashtag_histogram': hashtag_img_stream,
         'category_pie': category_img_stream,
     })
