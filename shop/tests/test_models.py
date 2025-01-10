@@ -1,38 +1,33 @@
-from django.test import TestCase
-from shop.models import Product, Purchase
-from datetime import datetime
+import pytest
+from django.db import IntegrityError
+from shop.models import Photo, Hashtag
 
-class ProductTestCase(TestCase):
-    def setUp(self):
-        Product.objects.create(name="book", price="740")
-        Product.objects.create(name="pencil", price="50")
+# Тест на создание нового хэштега
+@pytest.mark.django_db
+def test_create_hashtag():
+    """Проверяем создание хэштега"""
+    hashtag = Hashtag.objects.create(name='#лето')
+    assert hashtag.name == '#лето'
+    assert Hashtag.objects.count() == 1
 
-    def test_correctness_types(self):                   
-        self.assertIsInstance(Product.objects.get(name="book").name, str)
-        self.assertIsInstance(Product.objects.get(name="book").price, int)
-        self.assertIsInstance(Product.objects.get(name="pencil").name, str)
-        self.assertIsInstance(Product.objects.get(name="pencil").price, int)        
+# Тест на создание фотографии с корректными данными
+@pytest.mark.django_db
+def test_create_photo():
+    """Проверяем создание фотографии"""
+    photo = Photo.objects.create(
+        image_path='static/img/photo_bank/summer/summer_beach.jpg',
+        description='Отдых на пляже.',
+        hashtags='#пляж, #лето, #море, #отдых',
+        price=90.00
+    )
+    assert photo.description == 'Отдых на пляже.'
+    assert photo.price == 90.00
+    assert len(photo.get_hashtags_list()) == 4
 
-    def test_correctness_data(self):
-        self.assertTrue(Product.objects.get(name="book").price == 740)
-        self.assertTrue(Product.objects.get(name="pencil").price == 50)
-
-
-class PurchaseTestCase(TestCase):
-    def setUp(self):
-        self.product_book = Product.objects.create(name="book", price="740")
-        self.datetime = datetime.now()
-        Purchase.objects.create(product=self.product_book,
-                                person="Ivanov",
-                                address="Svetlaya St.")
-
-    def test_correctness_types(self):
-        self.assertIsInstance(Purchase.objects.get(product=self.product_book).person, str)
-        self.assertIsInstance(Purchase.objects.get(product=self.product_book).address, str)
-        self.assertIsInstance(Purchase.objects.get(product=self.product_book).date, datetime)
-
-    def test_correctness_data(self):
-        self.assertTrue(Purchase.objects.get(product=self.product_book).person == "Ivanov")
-        self.assertTrue(Purchase.objects.get(product=self.product_book).address == "Svetlaya St.")
-        self.assertTrue(Purchase.objects.get(product=self.product_book).date.replace(microsecond=0) == \
-            self.datetime.replace(microsecond=0))
+# Тест на уникальность хэштега
+@pytest.mark.django_db
+def test_unique_hashtag():
+    """Проверяем уникальность хэштега"""
+    Hashtag.objects.create(name='#лето')
+    with pytest.raises(IntegrityError):
+        Hashtag.objects.create(name='#лето')  # Должно вызвать исключение
