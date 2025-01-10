@@ -89,12 +89,12 @@ def statistics_view(request):
     ax.set_title('Гистограмма цен на фотографии')
     ax.set_xlabel('Цена')
     ax.set_ylabel('Количество')
-    
+
     # Сохраняем график в изображение
     img_stream = BytesIO()
     plt.savefig(img_stream, format='png')
     img_stream.seek(0)
-    
+
     # Строим pie диаграмму для хэштегов
     hashtag_counts = {}
     for hashtags in df['hashtags']:
@@ -116,7 +116,7 @@ def statistics_view(request):
         'Summer': len([photo for photo in photos if any(tag in photo.get_hashtags_list() for tag in summer_tags)]),
         'Cities': len([photo for photo in photos if any(tag in photo.get_hashtags_list() for tag in cities_tags)]),
     }
-    
+
     fig3, ax3 = plt.subplots(figsize=(8, 8))
     ax3.pie(category_counts.values(), labels=category_counts.keys(), autopct='%1.1f%%', startangle=90)
     ax3.set_title('Распределение фотографий по категориям')

@@ -29,21 +29,22 @@
     </header>
 
     <main>
-        <h2>Статистика</h2>
-        <div>
-            <h3>Гистограмма цен на фотографии</h3>
-            <img src="data:image/png;base64,{{ price_histogram|base64encode }}" alt="Гистограмма цен">
-        </div>
-        
-        <div>
-            <h3>Распределение хэштегов</h3>
-            <img src="data:image/png;base64,{{ hashtag_pie|base64encode }}" alt="Распределение хэштегов">
-        </div>
-
-        <div>
-            <h3>Распределение фотографий по категориям</h3>
-            <img src="data:image/png;base64,{{ category_pie|base64encode }}" alt="Распределение фотографий по категориям">
-        </div>
+        <h1>Статистика</h1>
+            {% load static %}
+            {% if price_histogram %}
+                <h2>Гистограмма цен</h2>
+                <img src="data:image/png;base64,{{ price_histogram|base64 }}" alt="Гистограмма цен">
+            {% endif %}
+            
+            {% if hashtag_pie %}
+                <h2>Распределение хэштегов</h2>
+                <img src="data:image/png;base64,{{ hashtag_pie|base64 }}" alt="Распределение хэштегов">
+            {% endif %}
+            
+            {% if category_pie %}
+                <h2>Распределение по категориям</h2>
+                <img src="data:image/png;base64,{{ category_pie|base64 }}" alt="Распределение по категориям">
+            {% endif %}
     </main>
 
     <footer>
