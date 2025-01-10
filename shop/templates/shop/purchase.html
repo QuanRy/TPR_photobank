@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Покупка</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/css/styles_purchase.css">
+    <link rel="icon" href="../../../static/img/logo_header_site_photo.png" type="image/png">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+
+            <a href="{% url 'index' %}" class="logo-container">
+                <img src="../../../static/img/home_logo.svg" alt="Home Logo" class="logo">
+            </a>
+
+            <div class="title-container">
+                <img src="../../../static/img/logo_photo.png" alt="Left Logo" class="header-logo">
+                <h1 class="header-title">Photobank QuanRy-photo</h1>
+                <img src="../../../static/img/logo_photo.png" alt="Right Logo" class="header-logo">
+            </div>
+
+            <div class="search-container">
+                <input type="text" placeholder="Поиск..." class="search-input" id="search-input">
+                <button class="search-button" onclick="searchHashtag()">Поиск</button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main>
+        <div class="purchase-section">
+            <!-- Блок информации о картинке -->
+            <div class="image-info">
+                <img src="{{ photo.image_path }}" alt="{{ photo.description }}" class="purchase-image">
+                <div class="purchase-description">
+                    <h2>{{ photo.description }}</h2>
+                    <div class="hashtags">
+                        {% for hashtag in photo.get_hashtags_list %}
+                            <span class="hashtag">{{ hashtag }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="purchase-price">{{ photo.price }} $</div>
+                </div>
+            </div>
+
+            <!-- Блок покупки -->
+            <div class="purchase-form">
+                <h2>Оформление покупки</h2>
+                <form method="post" action="{% url 'complete_purchase' %}">
+                    {% csrf_token %}
+                    <label for="full-name">ФИО</label>
+                    <input type="text" id="full-name" name="full_name" required>
+                    
+                    <label for="birth-date">Дата рождения</label>
+                    <input type="date" id="birth-date" name="birth_date" required>
+                    
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone" required>
+                    
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="card-number">Номер карты</label>
+                    <input type="text" id="card-number" name="card_number" required>
+                    
+                    <div class="card-details">
+                        <div>
+                            <label for="expiry-month">Месяц</label>
+                            <input type="text" id="expiry-month" name="expiry_month" placeholder="MM" required>
+                        </div>
+                        <div>
+                            <label for="expiry-year">Год</label>
+                            <input type="text" id="expiry-year" name="expiry_year" placeholder="YY" required>
+                        </div>
+                        <div>
+                            <label for="csv-code">CSV</label>
+                            <input type="text" id="csv-code" name="csv_code" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="buy-now-button">Купить</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <h3>FAQ</h3>
+            <h3>Связаться с нами</h3>
+            <div class="footer-column">
+                <h3>Наши контакты</h3>
+                <p><a href="https://vk.com" target="_blank">ВК</a></p>
+                <p><a href="https://github.com" target="_blank">GitHub</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; Photobank QuanRy 2024–2025</p>
+        </div>
+    </footer>
+</body>
+</html>

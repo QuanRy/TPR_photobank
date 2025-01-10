@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/css/styles_statistics.css">
+    <link rel="icon" href="../../../static/img/logo_header_site_photo.png" type="image/png">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="{% url 'index' %}" class="logo-container">
+                <img src="../../../static/img/home_logo.svg" alt="Home Logo" class="logo">
+            </a>
+
+            <div class="title-container">
+                <img src="../../../static/img/logo_photo.png" alt="Left Logo" class="header-logo">
+                <h1 class="header-title">Photobank QuanRy-photo</h1>
+                <img src="../../../static/img/logo_photo.png" alt="Right Logo" class="header-logo">
+            </div>
+
+            <div class="search-container">
+                <input type="text" placeholder="Поиск..." class="search-input" id="search-input">
+                <button class="search-button" onclick="searchHashtag()">Поиск</button>
+            </div>
+
+            <button class="statistics-button" onclick="window.location.href='{% url 'statistics' %}'">Статистика</button>
+        </div>
+    </header>
+
+    <main>
+        <h2>Статистика</h2>
+        <div>
+            <h3>Гистограмма цен на фотографии</h3>
+            <img src="data:image/png;base64,{{ price_histogram|base64encode }}" alt="Гистограмма цен">
+        </div>
+        
+        <div>
+            <h3>Распределение хэштегов</h3>
+            <img src="data:image/png;base64,{{ hashtag_pie|base64encode }}" alt="Распределение хэштегов">
+        </div>
+
+        <div>
+            <h3>Распределение фотографий по категориям</h3>
+            <img src="data:image/png;base64,{{ category_pie|base64encode }}" alt="Распределение фотографий по категориям">
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <h3>FAQ</h3>
+            <h3>Связаться с нами</h3>
+            <div class="footer-column">
+                <h3>Наши контакты</h3>
+                <p><a href="https://vk.com" target="_blank">ВК</a></p>
+                <p><a href="https://github.com" target="_blank">GitHub</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; Photobank QuanRy 2024–2025</p>
+        </div>
+    </footer>
+</body>
+</html>

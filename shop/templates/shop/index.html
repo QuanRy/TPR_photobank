@@ -26,6 +26,9 @@
                 <button class="search-button" onclick="searchHashtag()">Поиск</button>
             </div>
 
+            <button class="statistics-button" onclick="redirectToStatistics()">Статистика</button>
+
+
         </div>
     </header>
 
@@ -37,14 +40,16 @@
                 <div class="slider-item">
                     <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
                     <div class="description">{{ photo.description }}</div>
+                    
                     <div class="hashtags">
                         {% for hashtag in photo.get_hashtags_list %}
                             <span class="hashtag">{{ hashtag }}</span>
                         {% endfor %}
                     </div>
+            
                     <div class="price-container">
                         <div class="price">{{ photo.price }} $</div>
-                        <button class="buy-button">Купить</button>
+                        <button class="buy-button" onclick="redirectToPurchase({{ photo.id }})">Купить</button>
                     </div>
                 </div>
             {% endfor %}
@@ -63,14 +68,16 @@
                 <div class="slider-item">
                     <img src="{{ photo.image_path }}" alt="{{ photo.description }}">
                     <div class="description">{{ photo.description }}</div>
+                    
                     <div class="hashtags">
                         {% for hashtag in photo.get_hashtags_list %}
                             <span class="hashtag">{{ hashtag }}</span>
                         {% endfor %}
                     </div>
+                    
                     <div class="price-container">
                         <div class="price">{{ photo.price }} $</div>
-                        <button class="buy-button">Купить</button>
+                        <button class="buy-button" onclick="redirectToPurchase({{ photo.id }})">Купить</button>
                     </div>
                 </div>
             {% endfor %}
@@ -96,7 +103,7 @@
                     </div>
                     <div class="price-container">
                         <div class="price">{{ photo.price }} $</div>
-                        <button class="buy-button">Купить</button>
+                        <button class="buy-button" onclick="redirectToPurchase({{ photo.id }})">Купить</button>
                     </div>
                 </div>
             {% endfor %}
@@ -173,6 +180,15 @@
                 });
             });
         });
+
+        function redirectToPurchase(photoId) {
+            // Перенаправляем на страницу покупки, передавая ID через параметр запроса
+            window.location.href = `/purchase/?photo_id=${photoId}`;
+        }
+
+        function redirectToStatistics() {
+            window.location.href = "{% url 'statistics' %}";
+        }
         
     </script>
 </body>

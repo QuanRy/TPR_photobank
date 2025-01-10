@@ -7,3 +7,5 @@ django-heroku
 pytz
 sqlparse
 pyyaml
+pandas
+matplotlib
