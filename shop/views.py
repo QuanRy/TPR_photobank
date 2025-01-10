@@ -44,24 +44,15 @@ def search_photos(request):
     else:
         photos = Photo.objects.all()  # Если нет, берём все фото
 
-    # Определяем категории хэштегов
-    categories = {
-        "Новый год": ['#праздник', '#новыйгод', '#рождество'],
-        "Лето": ['#лето'],
-        "Город": ['#город']
-    }
-
     # Подсчитываем хэштеги
     hashtag_counter = Counter()
     for photo in photos:
         hashtags = photo.get_hashtags_list()  # Получаем список хэштегов для фото
         for tag in hashtags:
-            for category, tags in categories.items():
-                if tag in tags:
-                    hashtag_counter[category] += 1
+            hashtag_counter[tag] += 1  # Подсчитываем все хэштеги без фильтрации по категориям
 
     # Преобразуем данные в формат для графика
-    hashtag_data = [{"hashtag": category, "count": count} for category, count in hashtag_counter.items()]
+    hashtag_data = [{"hashtag": tag, "count": count} for tag, count in hashtag_counter.items()]
 
     # Передаем данные в шаблон как строку JSON
     return render(request, 'shop/search_results.html', {
