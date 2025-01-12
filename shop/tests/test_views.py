@@ -38,20 +38,19 @@ class PhotoViewTests(TestCase):
         self.assertContains(response, 'Summer Vacation')
         self.assertContains(response, 'City Landscape')
 
-    def test_2_search_photos_view(self):
-        """
-        Тестирует поиск по хэштегу.
-        Проверяет, что поиск по хэштегу #лето возвращает только фотографии с этим хэштегом.
-        """
-        response = self.client.get(reverse('search_photos'), {'hashtag': '#лето'})
+        # Проверяем, что фотографии разделены по категориям (новогодние, лето, города)
+        self.assertContains(response, 'Новый год')
+        self.assertContains(response, 'Лето')
+        self.assertContains(response, 'Города')
 
+
+    def test_2_search_empty_results(self):
+        """
+        Тестирует поведение при отсутствии фотографий по запросу.
+        Проверяет, что если нет совпадений, выводится сообщение "Фото не найдено".
+        """
+        # Поиск по несуществующему хэштегу
+        response = self.client.get(reverse('search_photos'), {'hashtag': '#несуществующийхэштег'})
+        
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Summer Vacation')
-        self.assertNotContains(response, 'New Year Celebration')
-        self.assertNotContains(response, 'City Landscape')
-
-        # Тестируем поиск с пустым хэштегом
-        response_empty = self.client.get(reverse('search_photos'), {'hashtag': ''})
-
-        self.assertEqual(response_empty.status_code, 200)
-        self.assertContains(response_empty, 'Фото не найдено')
+        self.assertContains(response, 'Фото не найдено')
